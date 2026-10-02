@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отзывы RUNGEL</title>
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#efede7; --ink:#1b1b19; --ink-2:#5c5b56; --ink-3:#8f8d86;
+  --line:#e2dfd7; --accent:#2f7d4f; --accent-soft:#e3f1e8;
+  --pos:#2f7d4f; --pos-bg:#e3f1e8; --neu:#6b6a64; --neu-bg:#ecebe6; --mix:#a3650f; --mix-bg:#f8ecd8; --neg:#b3392f; --neg-bg:#f8e1de;
+  --spA:#2f5fa8; --spB:#a8452f; --spC:#6d3fa3;
+  --hl:#fff3c4;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --surface:#1d1d1b; --surface-2:#262624; --ink:#ecebe6; --ink-2:#b0aea7; --ink-3:#7d7b75;
+    --line:#2f2f2c; --accent:#6cc28f; --accent-soft:#1f3328;
+    --pos:#6cc28f; --pos-bg:#1f3328; --neu:#a9a7a0; --neu-bg:#2a2a27; --mix:#e0a54f; --mix-bg:#3a2e1b; --neg:#ea7a70; --neg-bg:#3d2220;
+    --spA:#86aef0; --spB:#ef9a82; --spC:#bf9cf0; --hl:#3d3618;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1d1b; --surface-2:#262624; --ink:#ecebe6; --ink-2:#b0aea7; --ink-3:#7d7b75;
+  --line:#2f2f2c; --accent:#6cc28f; --accent-soft:#1f3328;
+  --pos:#6cc28f; --pos-bg:#1f3328; --neu:#a9a7a0; --neu-bg:#2a2a27; --mix:#e0a54f; --mix-bg:#3a2e1b; --neg:#ea7a70; --neg-bg:#3d2220;
+  --spA:#86aef0; --spB:#ef9a82; --spC:#bf9cf0; --hl:#3d3618;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:30px;line-height:1.15;margin:0;letter-spacing:-.01em}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:0 0 10px;font-weight:600}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+.sub{color:var(--ink-2);margin-top:6px}
+
+/* overview */
+.overview{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:28px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+.headline{font-size:18px;line-height:1.4;font-weight:600;margin:0 0 14px}
+.panel ul{margin:0;padding-left:18px}
+.panel li{margin:5px 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--ink-2)}
+.bar{display:flex;height:8px;border-radius:99px;overflow:hidden;margin:6px 0 4px;background:var(--surface-2)}
+.bar i{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--ink-2)}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
+.pc{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+.pc h3{font-size:12px;margin:0 0 4px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.pc ul{padding-left:16px;font-size:14px}
+
+/* cards */
+.card{display:grid;grid-template-columns:300px 1fr;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:18px}
+.card.context{opacity:.82}
+.vid{position:sticky;top:20px;align-self:start}
+video{width:100%;aspect-ratio:9/16;background:#000;border-radius:10px;display:block;object-fit:contain}
+.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:8px}
+.num{font-variant-numeric:tabular-nums}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--b);color:var(--c)}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.kind{font-size:12px;border:1px dashed var(--line);border-radius:999px;padding:2px 9px;color:var(--ink-3)}
+.card h3{font-size:19px;line-height:1.3;margin:8px 0 6px;letter-spacing:-.005em}
+.who{color:var(--ink-2);font-size:14px;margin:0}
+.ctx{color:var(--ink-3);font-size:13px;margin:2px 0 12px}
+.quote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0;font-size:15px;font-style:italic}
+.points{margin:8px 0;padding-left:18px}
+.points li{margin:3px 0}
+.pcm{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pcm span{font-size:12.5px;border-radius:8px;padding:3px 9px}
+.pcm .p{background:var(--pos-bg);color:var(--pos)}
+.pcm .m{background:var(--neg-bg);color:var(--neg)}
+.pcm .w{background:var(--mix-bg);color:var(--mix)}
+.trh{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:18px 0 4px;padding-top:12px;border-top:1px solid var(--line);font-weight:600}
+.tr{margin:0 -8px}
+.seg{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:6px 8px;border-radius:8px;cursor:pointer;transition:background .12s}
+.seg:hover{background:var(--surface-2)}
+.seg.on{background:var(--hl)}
+.seg time{font-size:12px;color:var(--ink-3);padding-top:2px;font-variant-numeric:tabular-nums}
+.seg b{font-size:12px;font-weight:600;color:var(--sp);display:block}
+.seg p{margin:0}
+.empty{color:var(--ink-3);font-style:italic;font-size:14px}
+footer{margin-top:40px;color:var(--ink-3);font-size:12.5px}
+
+@media (max-width:860px){
+  .overview{grid-template-columns:1fr}
+  .card{grid-template-columns:1fr;gap:14px;padding:16px}
+  .vid{position:static;max-width:300px;width:100%;margin:0 auto}
+  .wrap{padding:20px 16px 60px}
+  h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Видео-отзывы RUNGEL</h1>
+      <div class="sub" id="sub"></div>
+    </div>
+  </div>
+
+  <section class="overview">
+    <div class="panel">
+      <h2>Общая картина</h2>
+      <p class="headline" id="headline"></p>
+      <ul id="opoints"></ul>
+    </div>
+    <div class="panel">
+      <h2>В цифрах</h2>
+      <div class="stats" id="stats"></div>
+      <div class="bar" id="bar"></div>
+      <div class="legend" id="legend"></div>
+      <div class="pc" id="pc"></div>
+    </div>
+  </section>
+
+  <main id="list"></main>
+  <footer>Транскрипция: faster-whisper large-v3 · диаризация: pyannote community-1 · тексты вычитаны вручную, неразборчивые места помечены [неразборчиво]. Клик по реплике перематывает видео.</footer>
+</div>
+
+<script>
+const DATA = {"product": "RUNGEL", "overview": {"headline": "Отзывы тёплые, ни одного прямого негатива к самому продукту. Главные боли: непривычный «таёжный» вкус иммунного геля и упаковка.", "points": ["Сюжетов 14: десять с мнением о продукте, остальные — контекст (вопросы без ответа, поздравление, ролик без речи).", "Почти во всех роликах вопросы за кадром задаёт Иван Гусаков (подтверждено сравнением голосов).", "Две линейки: иммунный гель (пихта, лиственница, клюква) и спортивные гели для забегов (например, «Восстановление»).", "Иммунный гель хвалят за эффект: «при первых признаках простуды — вечером принял, утром как огурчик». Вкус сначала кажется странным, но к нему привыкают.", "Спортсмены и амбассадоры называют гель надёжной поддержкой на трассе, берут его на каждый старт и отмечают лёгкую текстуру.", "Сравнение с конкурентом: гель GU слишком густой и тягучий, его тяжело проглотить на бегу. RUNGEL «легко заходит».", "Что доработать: упаковку (бренд обещает новый станок через ~3 месяца). Пожелание — мерч для амбассадоров на стартах."], "pros": ["Работает: иммунитет, восстановление", "Натуральный состав, «сибирский» вкус", "Лёгкая текстура, удобно на дистанции", "Доверие амбассадоров и клубов"], "cons": ["Непривычный, кислый вкус с первого раза", "Несовершенная упаковка"], "wishes": ["Мерч и атрибутика для амбассадоров", "Доработать упаковку (уже в работе)"]}, "reviews": [{"id": "video_2026-10-02_19-54-38", "kind": "review", "title": "Первая дегустация иммунного геля: «прикольная штука», чувствуется пихта и клюква", "sentiment": "positive", "who": "Анастасия Александрова, управляющая фитнес-клуба Power Club Arena (Иркутский тракт); за кадром — Иван Гусаков", "context": "Фитнес-клуб, дегустация на камеру: пробует гель впервые", "points": ["Первая реакция на вкус: «Что за кислятина?» Через несколько секунд — «прикольная штука».", "Чётко различает вкусы: хвоя (сибирская пихта) и ягодная кислинка клюквы в послевкусии.", "Гели можно купить в клубе, их подают как средство для иммунитета."], "pros": ["Яркий натуральный вкус: пихта и клюква", "Приятное ягодное послевкусие"], "cons": ["Кислый вкус с первого раза удивляет"], "quote": "Прикольная штука, прям чувствуются вот эти травушки… пихта сибирская. И от клюквы такая кислинка", "tags": ["Дегустация", "Вкус", "Иммунитет", "Фитнес-клуб"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.7, "e": 12.9, "sp": "A", "t": "Анастасия Александрова, управляющая фитнес-клуба Power Club Arena на Иркутском тракте, красотка, и вот впервые пробует… Что ты пробуешь?"}, {"s": 13.0, "e": 16.6, "sp": "B", "t": "Я пробую гель, вот."}, {"s": 16.6, "e": 21.6, "sp": "A", "t": "Давай, очень интересны твои впечатления, первый вкус."}, {"s": 21.6, "e": 24.4, "sp": "B", "t": "Что за кислятина, что это?"}, {"s": 24.6, "e": 25.8, "sp": "B", "t": "Ты мне скажи, его прям весь надо?"}, {"s": 25.8, "e": 34.3, "sp": "A", "t": "Весь. На, и причём не переворачивай, просто нажимай, вот как будто ты космонавт, представь. И смелее, прям."}, {"s": 51.1, "e": 59.4, "sp": "B", "t": "Блин, прикольная штука. Вот прям чувствуются вот эти вот травушки… как правильно? Пихта, пихта…"}, {"s": 59.4, "e": 60.1, "sp": "A", "t": "Пихта."}, {"s": 60.1, "e": 66.8, "sp": "B", "t": "…сибирская. Вот. Ну и от клюквы такая кислинка. И послевкусие такое прям ягодное. Вообще прикольно."}, {"s": 67.0, "e": 80.5, "sp": "A", "t": "Супер, спасибо за эту дегустацию! Я хочу сказать, что вы можете приходить на тренировки и здесь приобрести эти гели для усиления иммунитета. Ребята, будьте здоровы, спасибо!"}], "file": "media/video_2026-10-02_19-54-38.mp4", "duration": 81.8}, {"id": "video_2026-10-02_19-54-44", "kind": "review", "title": "Дети на уличном спортивном празднике пробуют гель: «Вкусно!»", "sentiment": "positive", "who": "Дети — участники спортивного мероприятия", "context": "Улица, спортивный праздник. Дети пробуют гель прямо из стика", "points": ["Дети с удовольствием пробуют гель и отвечают «вкусно», «нормально».", "Продукт подходит и детской аудитории на массовых стартах."], "pros": ["Детям нравится вкус"], "cons": [], "quote": "— Как, вкусно? — Вкусно!", "tags": ["Дегустация", "Вкус", "Дети", "Мероприятие"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 6.0, "sp": "A", "t": "Как, вкусно?"}, {"s": 6.0, "e": 10.0, "sp": "B", "t": "Вкусно!"}, {"s": 10.0, "e": 12.0, "sp": "A", "t": "Ну как?"}, {"s": 12.0, "e": 14.0, "sp": "B", "t": "Нормально!"}, {"s": 20.0, "e": 22.0, "sp": "A", "t": "Получается?"}], "file": "media/video_2026-10-02_19-54-44.mp4", "duration": 22.6}, {"id": "video_2026-10-02_19-54-48", "kind": "review", "title": "Амбассадор Лена Ходова: вкус сначала странный, но «классная штука, работающая»", "sentiment": "positive", "who": "Лена Ходова, амбассадор, соорганизатор Томского марафона, руководитель клуба «Сибирский трейл»", "context": "Стенд на конференции/форуме. Рассказывает о личном опыте с иммунным гелем", "points": ["Пользуется иммунным гелем часто.", "С первого раза вкус непривычный, «очень сибирский»: пихта, лиственница, очень яркий.", "К вкусу привыкаешь, главное — что продукт работает."], "pros": ["Работает", "Яркий сибирский вкус"], "cons": ["Непривычный вкус с первого раза"], "quote": "Потом его распробуешь… Классная штука, работающая", "tags": ["Амбассадор", "Вкус", "Иммунитет", "Эффект"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 7.5, "sp": "A", "t": "Лена Ходова, это наш амбассадор, один из организаторов Томского марафона и руководитель клуба «Сибирский трейл»."}, {"s": 7.5, "e": 18.0, "sp": "A", "t": "Лена, я знаю, что вы иногда пользуетесь нашими гелями иммунными. Расскажите про личный опыт. По-честному: нравится, не нравится, вообще как?"}, {"s": 18.3, "e": 22.6, "sp": "B", "t": "Классный продукт, на самом деле часто его использую."}, {"s": 25.4, "e": 40.8, "sp": "B", "t": "На первый взгляд вкус кажется таким странным, потому что непривычный, очень такой сибирский: пихта, лиственница… Очень яркий вкус."}, {"s": 40.8, "e": 48.5, "sp": "B", "t": "Потом его распробуешь. Я просто много его уже использую, потому что классная штука, работающая."}], "file": "media/video_2026-10-02_19-54-48.mp4", "duration": 48.6}, {"id": "video_2026-10-02_19-54-52", "kind": "context", "title": "Вопрос посетителю стенда, ответа на записи нет", "sentiment": "neutral", "who": "Посетитель стенда", "context": "Стенд RUNGEL на мероприятии. Иван подходит с вопросом", "points": ["На записи только вопрос «Есть опыт потребления RUNGEL?», ответ не попал в кадр или неразборчив."], "pros": [], "cons": [], "quote": "", "tags": ["Мероприятие", "Без ответа"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 17.4, "sp": "A", "t": "У вас есть опыт потребления нашего геля RUNGEL? Можете поделиться?"}], "file": "media/video_2026-10-02_19-54-52.mp4", "duration": 18.5}, {"id": "video_2026-10-02_19-54-57", "kind": "review", "title": "Покупатели выбирают RUNGEL, несмотря на упаковку. Бренд обещает новый станок", "sentiment": "mixed", "who": "Иван Гусаков (за кадром) обращается к покупателям у стенда", "context": "Стенд на мероприятии, посетители у коробок с гелями", "points": ["Признание бренда: упаковка пока «несовершенная».", "При этом покупатели всё равно выбирают RUNGEL, а не конкурентов.", "Обещание: станок для новой упаковки уже заказан, срок около 3 месяцев."], "pros": ["Лояльность: выбирают вместо конкурентов"], "cons": ["Несовершенная упаковка"], "quote": "Несмотря на то, что у нас несовершенная упаковка, вы всё равно выбираете нас по сравнению с конкурентами", "tags": ["Упаковка", "Конкуренты", "Мероприятие"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 12.8, "sp": "A", "t": "Несмотря на то, что у нас несовершенная упаковка, вы всё равно выбираете нас по сравнению с конкурентами."}, {"s": 13.9, "e": 20.0, "sp": "A", "t": "Ну что ж, упаковку мы доработаем. Я обещаю, уже заказан станок, дайте только срок. Вот, три месяца у нас он идёт."}], "file": "media/video_2026-10-02_19-54-57.mp4", "duration": 21.1}, {"id": "video_2026-10-02_19-55-02", "kind": "context", "title": "Сбор обратной связи у стенда, ответа на записи нет", "sentiment": "neutral", "who": "Посетители стенда", "context": "Стенд на мероприятии. Иван приглашает людей поделиться мнением", "points": ["Бренд приглашает посетителей поделиться обратной связью. Ответов на записи нет."], "pros": [], "cons": [], "quote": "", "tags": ["Мероприятие", "Без ответа"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 15.2, "sp": "A", "t": "Реально? Здравствуйте, подходите, пожалуйста. Для нас это очень важно, мы собираем обратную связь о нашем продукте. И вот, ну как бы, помогает?"}, {"s": 16.3, "e": 22.0, "sp": "A", "t": "У вас есть опыт потребления RUNGEL? Вам нравится?"}], "file": "media/video_2026-10-02_19-55-02.mp4", "duration": 24.1}, {"id": "video_2026-10-02_19-55-06", "kind": "review", "title": "Одного геля хватает: вечером приняла, утром «как огурчик»", "sentiment": "positive", "who": "Лена Ходова (продолжение интервью)", "context": "Стенд на конференции. Подробно об эффекте иммунного геля", "points": ["Принимает при первых признаках: болит горло, высокая нагрузка (спорт, работа), смена погоды.", "Принимает вечером, спит спокойно, утром бодрая.", "Удивлена эффектом: не нужно самой собирать витаминные смеси без специальных знаний.", "Вкус со временем становится «родным»."], "pros": ["Быстрый эффект при простуде", "Простое готовое решение вместо витаминов", "К вкусу привыкаешь"], "cons": [], "quote": "Вечером принимаю, ночью спокойно сплю и утром просыпаюсь как огурчик", "tags": ["Иммунитет", "Эффект", "Амбассадор", "Вкус"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 3.6, "sp": "A", "t": "А потом вкус немножко так становится…"}, {"s": 3.6, "e": 5.1, "sp": "B", "t": "А как работает?"}, {"s": 5.1, "e": 6.4, "sp": "A", "t": "Работает."}, {"s": 6.4, "e": 10.5, "sp": "B", "t": "Какой у него эффект, и вообще помогает? В какие моменты употребляешь его?"}, {"s": 10.5, "e": 30.3, "sp": "A", "t": "Я чувствую, когда горло немножко болит, когда большая нагрузка — там спорт, работа, ещё какие-то нюансы, смена температуры. Чувствуется, что иммунитет немножко падает, и, например, вечером принимаю, ночью спокойно сплю и утром просыпаюсь как огурчик."}, {"s": 30.8, "e": 31.9, "sp": "B", "t": "Супер вообще. Свежая."}, {"s": 32.5, "e": 34.6, "sp": "B", "t": "То есть достаточно одного геля, чтобы победить хандру?"}, {"s": 34.8, "e": 54.1, "sp": "A", "t": "В целом да. Я на самом деле была удивлена такому эффекту, потому что не надо придумывать себе смесь каких-то витаминов C, чего-то ещё, притом что ты не специалист в этом вопросе. Просто берёшь гель, кушаешь — приятный, уже на вкус родной, можно сказать."}], "file": "media/video_2026-10-02_19-55-06.mp4", "duration": 55.9}, {"id": "video_2026-10-02_19-55-10", "kind": "review", "title": "Амбассадор Оксана: «надёжная выручка» на забегах, клуб без RUNGEL на старты не ездит", "sentiment": "positive", "who": "Оксана, одна из первых амбассадоров в Томске, бегунья, клуб «Спорттрек»", "context": "На улице, с коробками гелей. Перед чемпионатом России по скайраннингу", "points": ["Рекомендует RUNGEL всем спортсменам: «надёжная выручка» на забегах и тренировках.", "Возьмёт гели на чемпионат России по скайраннингу.", "Весь клуб уже знает продукт и без него на старты не ездит.", "«Очень вкусно и очень помогает»."], "pros": ["Поддержка на всей трассе", "Вкусно", "Командный выбор клуба"], "cons": [], "quote": "Мы без него ни на какие старты уже не ездим… Это очень вкусно и очень помогает", "tags": ["Амбассадор", "Спорт и забеги", "Эффект", "Вкус"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 15.2, "sp": "A", "t": "Оксан, два слова. Вот Дима — это наш главный технолог. Оксана — один из наших первых амбассадоров в Томске, бегунья, спортсменка, красавица, активистка. И вот два слова просто о продукте для наших [неразборчиво] и подписчиков."}, {"s": 15.2, "e": 26.7, "sp": "B", "t": "Я всем рекомендую попробовать данный продукт RUNGEL. Это реально для спортсменов прям надёжная выручка и помощь при забеге, при тренировках. Рекомендую, пробуйте."}, {"s": 26.7, "e": 29.4, "sp": "A", "t": "Оксана, вы в чемпионате России участвуете скоро?"}, {"s": 29.4, "e": 39.0, "sp": "B", "t": "Да, у нас на выходных будет проходить чемпионат России по скайраннингу, в дисциплине «гонка». И как раз он меня будет выручать и поддерживать на всей трассе."}, {"s": 39.0, "e": 40.1, "sp": "A", "t": "Вы для себя и для друзей?"}, {"s": 40.6, "e": 50.0, "sp": "B", "t": "Да, мы для наших спортсменов. Они уже тоже знают о RUNGEL, и мы, соответственно, без него ни на какие старты уже не ездим."}, {"s": 50.1, "e": 54.3, "sp": "B", "t": "Просто для нас это, конечно, честно. Да, это очень вкусно и очень помогает."}, {"s": 54.4, "e": 55.2, "sp": "A", "t": "Из какого вы клуба?"}, {"s": 55.7, "e": 57.2, "sp": "B", "t": "«Спорттрек». Клуб «Спорттрек»."}, {"s": 57.2, "e": 61.9, "sp": "A", "t": "«Спорттрек», отлично. Спасибо большое, вам побед и новых достижений!"}, {"s": 61.9, "e": 62.9, "sp": "B", "t": "Спасибо, спасибо."}], "file": "media/video_2026-10-02_19-55-10.mp4", "duration": 64.0}, {"id": "video_2026-10-02_19-55-15", "kind": "context", "title": "Поздравление Оксаны: выполнила норматив мастера спорта", "sentiment": "neutral", "who": "Оксана, амбассадор (Томск)", "context": "Продолжение интервью с Оксаной", "points": ["Оксана выполнила норматив мастера спорта, официальное подтверждение ждёт в мае–июне.", "О продукте не говорит, но это сильный социальный аргумент: амбассадор бренда — спортсменка уровня МС."], "pros": [], "cons": [], "quote": "Должно уже прийти официальное подтверждение того, что я выполнила мастера спорта", "tags": ["Амбассадор", "Спорт и забеги"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 5.9, "sp": "A", "t": "Хотим вас поздравить. Вы выполнили мастера спорта."}, {"s": 5.9, "e": 16.1, "sp": "B", "t": "Да, но ещё официально не было. Должно вот в мае–июне, наверное, прийти официальное подтверждение того, что я выполнила мастера спорта."}, {"s": 16.1, "e": 17.2, "sp": "A", "t": "Мы вас поздравляем."}, {"s": 17.4, "e": 18.4, "sp": "B", "t": "Спасибо большое."}], "file": "media/video_2026-10-02_19-55-15.mp4", "duration": 19.7}, {"id": "video_2026-10-02_19-55-20", "kind": "review", "title": "Пожелание амбассадора: мерч, чтобы показывать бренд на стартах", "sentiment": "neutral", "who": "Оксана, амбассадор (Томск)", "context": "Продолжение интервью с Оксаной", "points": ["Просит атрибутику/мерч, готова показывать бренд на стартах.", "Бренд обещает сделать."], "pros": [], "cons": [], "wishes": ["Мерч и атрибутика для амбассадоров"], "quote": "Я бы попросила от вас какую-нибудь атрибутику, мерч. Я бы готова даже на стартах показывать", "tags": ["Пожелания", "Мерч", "Амбассадор"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 5.5, "sp": "A", "t": "Я бы попросила от вас, может быть, какую-нибудь атрибутику, мерч. Я была бы готова даже там, на стартах, показывать."}, {"s": 5.6, "e": 7.0, "sp": "B", "t": "Мы сделаем обязательно."}], "file": "media/video_2026-10-02_19-55-20.mp4", "duration": 7.4}, {"id": "video_2026-10-02_19-55-25", "kind": "review", "title": "Нашла RUNGEL в магазине на соревнованиях: «качественный крутой гель для бегунов»", "sentiment": "positive", "who": "Участница/гостья соревнований, знакомая создателей бренда", "context": "Соревнования (ГТО и не только), торговые палатки у старта", "points": ["Случайно нашла RUNGEL в магазине на соревнованиях — «очень приятный сюрприз».", "Рекомендует как качественный гель для бегунов, чтобы быстро восполнить силы."], "pros": ["Есть в продаже на соревнованиях", "Быстрое восполнение сил"], "cons": [], "quote": "Очень рекомендую: качественный, крутой гель для бегунов, для быстрого восполнения сил", "tags": ["Спорт и забеги", "Эффект", "Продажи на стартах"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 17.0, "sp": "A", "t": "У нас тут соревнования [неразборчиво] по ГТО, и не только. Пока готовятся спортсмены, тут работают магазинчики, и очень приятный сюрприз я увидела тут —"}, {"s": 17.0, "e": 23.0, "sp": "A", "t": "RUNGEL, который выпускают мои замечательные друзья."}, {"s": 23.0, "e": 31.1, "sp": "A", "t": "Очень рекомендую: качественный, крутой гель для бегунов, для быстрого восполнения сил."}], "file": "media/video_2026-10-02_19-55-25.mp4", "duration": 32.3}, {"id": "video_2026-10-02_19-55-30", "kind": "context", "title": "Без речи: гель «Восстановление» на фоне моря", "sentiment": "neutral", "who": "—", "context": "Берег моря. Крупный план стика геля RUNGEL «Восстановление»", "points": ["Речи нет, только визуал. Подойдёт как перебивка или B-roll для монтажа."], "pros": [], "cons": [], "quote": "", "tags": ["Без речи", "B-roll"], "speakers": {}, "segments": [], "file": "media/video_2026-10-02_19-55-30.mp4", "duration": 10.3}, {"id": "video_2026-10-02_19-55-34", "kind": "review", "title": "Короткое «искренне рекомендую»", "sentiment": "positive", "who": "Девушка с гелем в руках", "context": "Улица, селфи-видео", "points": ["Короткая рекомендация на 3 секунды. Подойдёт для нарезки."], "pros": [], "cons": [], "quote": "Рекомендация. Искренне рекомендую", "tags": ["Рекомендация"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 2.9, "sp": "A", "t": "Рекомендация. Искренне рекомендую. Ой."}], "file": "media/video_2026-10-02_19-55-34.mp4", "duration": 3.6}, {"id": "video_2026-10-02_19-55-38", "kind": "review", "title": "После полумарафона: гель конкурента «не разжевать», а RUNGEL «легко заходит»", "sentiment": "positive", "who": "Пара после полумарафона (21,1 км): Маруся и Иван Гусаков (по голосу)", "context": "Финиш полумарафона, с медалями. Сравнение с гелем GU", "points": ["Маруся на забеге пробовала гель конкурента (GU): очень плотный и тягучий, его не проглотить, сбивается дыхание.", "Спутник использовал RUNGEL на дистанции: классная текстура, легко заходит, натуральные соки.", "Маруся RUNGEL пока не пробовала, в следующий раз собирается взять."], "pros": ["Лёгкая текстура, удобно на бегу", "Натуральные соки"], "cons": [], "quote": "Я применял RUNGEL на дистанции, и мне очень понравился. Очень классная текстура, легко заходит, натуральные соки — бомба вообще", "tags": ["Спорт и забеги", "Текстура", "Конкуренты"], "speakers": {"B": "Спикер 1", "A": "Спикер 2"}, "segments": [{"s": 0.0, "e": 2.0, "sp": "B", "t": "Маруся в общем тоже попробовала гель…"}, {"s": 2.0, "e": 18.0, "sp": "A", "t": "Я его ещё пробовала во время забега. Взяла, и, конечно же, его очень неудобно пить. В чём проблема: он очень плотный, он такой тягучий. То есть когда ты бежишь, у тебя и так дыхание…"}, {"s": 18.0, "e": 22.0, "sp": "B", "t": "Это какой гель, ты говоришь? GU, да?"}, {"s": 22.0, "e": 37.5, "sp": "A", "t": "…может забиваться, когда ты его употребляешь. Во рту он такой тягучий, его пытаешься языком разжевать, а он не разжёвывается. Во рту и так слюны мало, то есть нечему его разжевать, и начинает дыхание сбиваться, когда бежишь. То есть, конечно, в этом плане неудобно."}, {"s": 37.7, "e": 39.3, "sp": "B", "t": "А ты RUNGEL не применяла на дистанции?"}, {"s": 39.9, "e": 40.7, "sp": "A", "t": "Нет, пока нет."}, {"s": 40.7, "e": 54.0, "sp": "B", "t": "Ага, а я применял RUNGEL на дистанции, и мне очень понравился. Очень классная текстура, легко заходит, натуральные соки — бомба вообще. Вот, а Маше я RUNGEL не дал, потому что она у меня его не просила. Вот."}, {"s": 54.0, "e": 60.4, "sp": "B", "t": "Такие дела. RUNGEL, RUNGEL, RUNGEL, RUNGEL. В следующий раз возьмёшь RUNGEL на дистанцию?"}, {"s": 61.0, "e": 61.2, "sp": "A", "t": "Да."}, {"s": 61.2, "e": 63.3, "sp": "B", "t": "Вот такие дела."}], "file": "media/video_2026-10-02_19-55-38.mp4", "duration": 64.2}]};
+const SENT = {
+  positive:{label:"Позитив", c:"--pos", b:"--pos-bg"},
+  mixed:{label:"Смешанный", c:"--mix", b:"--mix-bg"},
+  neutral:{label:"Нейтрально", c:"--neu", b:"--neu-bg"},
+  negative:{label:"Негатив", c:"--neg", b:"--neg-bg"}
+};
+const SPC = ["--spA","--spB","--spC"];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = t => { t = Math.floor(t); return Math.floor(t/60) + ":" + String(t%60).padStart(2,"0"); };
+
+const R = DATA.reviews;
+const O = DATA.overview;
+const total = R.reduce((a,r)=>a+(r.duration||0),0);
+const reviewsN = R.filter(r=>r.kind==="review").length;
+$("#sub").textContent = `${R.length} видео · ${Math.round(total/60)} мин записи · ${reviewsN} с мнением о продукте`;
+$("#headline").textContent = O.headline;
+$("#opoints").innerHTML = O.points.map(p=>`<li>${esc(p)}</li>`).join("");
+
+const cnt = {}; R.forEach(r=>cnt[r.sentiment]=(cnt[r.sentiment]||0)+1);
+$("#stats").innerHTML = [
+  [cnt.positive||0, "позитивных"],
+  [cnt.negative||0, "негативных"],
+  [reviewsN, "отзывов с мнением"],
+  [Math.round(total/60)+" мин", "общая длина"]
+].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
+const order = ["positive","mixed","neutral","negative"];
+$("#bar").innerHTML = order.filter(k=>cnt[k]).map(k=>`<i style="width:${cnt[k]/R.length*100}%;background:var(${SENT[k].c})" title="${SENT[k].label}: ${cnt[k]}"></i>`).join("");
+$("#legend").innerHTML = order.filter(k=>cnt[k]).map(k=>`<span style="--c:var(${SENT[k].c})">${SENT[k].label} ${cnt[k]}</span>`).join("");
+const list = (t,a)=>a&&a.length?`<div><h3>${t}</h3><ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"";
+$("#pc").innerHTML = list("Хвалят", O.pros) + list("Критикуют", O.cons) + list("Просят", O.wishes);
+
+/* cards */
+function card(r, i){
+  const S = SENT[r.sentiment];
+  const spk = Object.keys(r.speakers||{});
+  const pcm = [...(r.pros||[]).map(x=>`<span class="p">+ ${esc(x)}</span>`), ...(r.cons||[]).map(x=>`<span class="m">− ${esc(x)}</span>`), ...(r.wishes||[]).map(x=>`<span class="w">→ ${esc(x)}</span>`)].join("");
+  const segs = r.segments.length ? r.segments.map((s,j)=>{
+    const color = SPC[spk.indexOf(s.sp)] || SPC[0];
+    return `<div class="seg" data-s="${s.s}" data-e="${s.e}" style="--sp:var(${color})"><time>${fmt(s.s)}</time><div><b>${esc(r.speakers[s.sp]||s.sp)}</b><p>${esc(s.t)}</p></div></div>`;
+  }).join("") : `<p class="empty">В видео нет речи.</p>`;
+  return `<article class="card ${r.kind}" id="${r.id}">
+    <div class="vid">
+      <video src="${esc(r.file)}" controls preload="metadata" playsinline></video>
+      <div class="meta"><span class="num">#${i+1}</span><span class="num">${fmt(r.duration)}</span><span>${esc(r.file.split("/").pop())}</span></div>
+    </div>
+    <div>
+      <div class="meta"><span class="badge" style="--c:var(${S.c});--b:var(${S.b})">${S.label}</span>${r.kind==="context"?`<span class="kind">контекст, без мнения о продукте</span>`:""}</div>
+      <h3>${esc(r.title)}</h3>
+      <p class="who">${esc(r.who)}</p>
+      <p class="ctx">${esc(r.context)}</p>
+      ${r.quote?`<blockquote class="quote">«${esc(r.quote)}»</blockquote>`:""}
+      <ul class="points">${r.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+      ${pcm?`<div class="pcm">${pcm}</div>`:""}
+      <h4 class="trh">Транскрипция</h4>
+      <div class="tr">${segs}</div>
+    </div>
+  </article>`;
+}
+$("#list").innerHTML = R.map(card).join("");
+function bind(){
+  document.querySelectorAll(".card").forEach(c=>{
+    const v = c.querySelector("video"), segs = [...c.querySelectorAll(".seg")];
+    segs.forEach(s=>s.onclick=()=>{ v.currentTime=+s.dataset.s; v.play(); });
+    v.addEventListener("play", ()=>document.querySelectorAll("video").forEach(o=>o!==v&&o.pause()));
+    v.addEventListener("timeupdate", ()=>{
+      const t = v.currentTime;
+      segs.forEach(s=>s.classList.toggle("on", t>=+s.dataset.s && t<+s.dataset.e+0.3));
+    });
+  });
+}
+bind();
+</script>
+</body>
+</html>

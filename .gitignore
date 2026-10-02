@@ -1,0 +1,4 @@
+.venv/
+.hf_token
+__pycache__/
+work/
