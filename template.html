@@ -84,6 +84,10 @@ video{width:100%;aspect-ratio:9/16;background:#000;border-radius:10px;display:bl
 .seg b{font-size:12px;font-weight:600;color:var(--sp);display:block}
 .seg p{margin:0}
 .empty{color:var(--ink-3);font-style:italic;font-size:14px}
+.back{display:inline-block;margin-bottom:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+.back:hover{border-bottom-color:var(--accent)}
+.card{scroll-margin-top:20px}
+.card:target{outline:2px solid var(--accent);outline-offset:3px}
 footer{margin-top:40px;color:var(--ink-3);font-size:12.5px}
 
 @media (max-width:860px){
@@ -99,6 +103,7 @@ footer{margin-top:40px;color:var(--ink-3);font-size:12.5px}
 <div class="wrap">
   <div class="top">
     <div>
+      <a class="back" href="./">← Стратегия RUNGEL: от видео-отзывов к рекламе</a>
       <h1>Видео-отзывы RUNGEL</h1>
       <div class="sub" id="sub"></div>
     </div>
@@ -120,7 +125,7 @@ footer{margin-top:40px;color:var(--ink-3);font-size:12.5px}
   </section>
 
   <main id="list"></main>
-  <footer>Транскрипция: faster-whisper large-v3 · диаризация: pyannote community-1 · тексты вычитаны вручную, неразборчивые места помечены [неразборчиво]. Клик по реплике перематывает видео.</footer>
+  <footer><a class="back" href="./">← Вернуться к лонгриду</a><br>Транскрипция: faster-whisper large-v3 · диаризация: pyannote community-1 · тексты вычитаны вручную, неразборчивые места помечены [неразборчиво]. Клик по реплике перематывает видео.</footer>
 </div>
 
 <script>
@@ -197,6 +202,7 @@ function bind(){
   });
 }
 bind();
+if (location.hash) { const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); }
 </script>
 </body>
 </html>

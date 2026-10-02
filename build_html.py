@@ -1,4 +1,4 @@
-"""reviews.json + work/<id>.json -> index.html (видео подтягиваются из media/)."""
+"""reviews.json + work/<id>.json -> reviews.html (видео подтягиваются из media/)."""
 import json
 from pathlib import Path
 
@@ -10,5 +10,5 @@ for r in data["reviews"]:
 
 payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 html = (ROOT / "template.html").read_text(encoding="utf-8").replace("/*__DATA__*/null", payload)
-(ROOT / "index.html").write_text(html, encoding="utf-8")
-print("index.html:", len(html) // 1024, "KB")
+(ROOT / "reviews.html").write_text(html, encoding="utf-8")
+print("reviews.html:", len(html) // 1024, "KB")

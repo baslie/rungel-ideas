@@ -3,200 +3,605 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Отзывы RUNGEL</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2324513b%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Arial%27 font-weight=%27900%27 font-size=%2720%27 text-anchor=%27middle%27 fill=%27%23f2ede2%27%3ER%3C/text%3E%3C/svg%3E">
+<title>RUNGEL: от видео-отзывов к рекламной стратегии</title>
+<meta name="description" content="Запись одного рассуждения: от четырнадцати видео-отзывов к пониманию, как небольшой томской компании выходить к покупателю.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400;1,7..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#efede7; --ink:#1b1b19; --ink-2:#5c5b56; --ink-3:#8f8d86;
-  --line:#e2dfd7; --accent:#2f7d4f; --accent-soft:#e3f1e8;
-  --pos:#2f7d4f; --pos-bg:#e3f1e8; --neu:#6b6a64; --neu-bg:#ecebe6; --mix:#a3650f; --mix-bg:#f8ecd8; --neg:#b3392f; --neg-bg:#f8e1de;
-  --spA:#2f5fa8; --spB:#a8452f; --spC:#6d3fa3;
-  --hl:#fff3c4;
-  --radius:14px;
+  --paper:#f2ede2; --paper-2:#e9e2d2; --card:#f8f5ee;
+  --ink:#16251d; --ink-2:#44534a; --ink-3:#7a8279;
+  --line:#d6cdb8;
+  --fir:#24513b; --fir-soft:#dbe5d9;
+  --cran:#b02a3e; --cran-soft:#f3d9d9;
+  --larch:#b9781f; --larch-soft:#f1e2c4;
+  --contour:rgba(36,81,59,.10);
+  --grain:.05;
+  --display:"Unbounded",system-ui,sans-serif;
+  --serif:"Literata",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#141413; --surface:#1d1d1b; --surface-2:#262624; --ink:#ecebe6; --ink-2:#b0aea7; --ink-3:#7d7b75;
-    --line:#2f2f2c; --accent:#6cc28f; --accent-soft:#1f3328;
-    --pos:#6cc28f; --pos-bg:#1f3328; --neu:#a9a7a0; --neu-bg:#2a2a27; --mix:#e0a54f; --mix-bg:#3a2e1b; --neg:#ea7a70; --neg-bg:#3d2220;
-    --spA:#86aef0; --spB:#ef9a82; --spC:#bf9cf0; --hl:#3d3618;
+    --paper:#0f1713; --paper-2:#16201b; --card:#141e19;
+    --ink:#ebe5d6; --ink-2:#b4b6a8; --ink-3:#7f877d;
+    --line:#2a3630;
+    --fir:#7cc39a; --fir-soft:#1b2c23;
+    --cran:#ef7d8b; --cran-soft:#35191e;
+    --larch:#e3ab55; --larch-soft:#33281a;
+    --contour:rgba(124,195,154,.08);
+    --grain:.07;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#141413; --surface:#1d1d1b; --surface-2:#262624; --ink:#ecebe6; --ink-2:#b0aea7; --ink-3:#7d7b75;
-  --line:#2f2f2c; --accent:#6cc28f; --accent-soft:#1f3328;
-  --pos:#6cc28f; --pos-bg:#1f3328; --neu:#a9a7a0; --neu-bg:#2a2a27; --mix:#e0a54f; --mix-bg:#3a2e1b; --neg:#ea7a70; --neg-bg:#3d2220;
-  --spA:#86aef0; --spB:#ef9a82; --spC:#bf9cf0; --hl:#3d3618;
+  --paper:#0f1713; --paper-2:#16201b; --card:#141e19;
+  --ink:#ebe5d6; --ink-2:#b4b6a8; --ink-3:#7f877d;
+  --line:#2a3630;
+  --fir:#7cc39a; --fir-soft:#1b2c23;
+  --cran:#ef7d8b; --cran-soft:#35191e;
+  --larch:#e3ab55; --larch-soft:#33281a;
+  --contour:rgba(124,195,154,.08);
+  --grain:.07;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
-h1{font-size:30px;line-height:1.15;margin:0;letter-spacing:-.01em}
-h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:0 0 10px;font-weight:600}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
-.sub{color:var(--ink-2);margin-top:6px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.7 var(--serif);font-optical-sizing:auto;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+::selection{background:var(--larch-soft)}
 
-/* overview */
-.overview{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:28px}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
-.headline{font-size:18px;line-height:1.4;font-weight:600;margin:0 0 14px}
-.panel ul{margin:0;padding-left:18px}
-.panel li{margin:5px 0}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
-.stat{background:var(--surface-2);border-radius:10px;padding:10px 12px}
-.stat b{display:block;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat span{font-size:12px;color:var(--ink-2)}
-.bar{display:flex;height:8px;border-radius:99px;overflow:hidden;margin:6px 0 4px;background:var(--surface-2)}
-.bar i{display:block}
-.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--ink-2)}
-.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
-.pc{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
-.pc h3{font-size:12px;margin:0 0 4px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-.pc ul{padding-left:16px;font-size:14px}
+/* ——— top bar ——— */
+.bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px clamp(16px,4vw,40px);background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{font:800 15px/1 var(--display);letter-spacing:.14em;text-decoration:none}
+.brand i{font-style:normal;color:var(--cran)}
+.bar nav{display:flex;gap:18px;align-items:center}
+.bar nav a{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink-2)}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a.pill{color:var(--paper);background:var(--fir);padding:9px 14px;border-radius:999px}
+.bar nav a.pill:hover{color:var(--paper);background:var(--ink)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--cran);transform-origin:0 50%;transform:scaleX(var(--p,0))}
 
-/* cards */
-.card{display:grid;grid-template-columns:300px 1fr;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:18px}
-.card.context{opacity:.82}
-.vid{position:sticky;top:20px;align-self:start}
-video{width:100%;aspect-ratio:9/16;background:#000;border-radius:10px;display:block;object-fit:contain}
-.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:8px}
-.num{font-variant-numeric:tabular-nums}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--b);color:var(--c)}
-.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
-.kind{font-size:12px;border:1px dashed var(--line);border-radius:999px;padding:2px 9px;color:var(--ink-3)}
-.card h3{font-size:19px;line-height:1.3;margin:8px 0 6px;letter-spacing:-.005em}
-.who{color:var(--ink-2);font-size:14px;margin:0}
-.ctx{color:var(--ink-3);font-size:13px;margin:2px 0 12px}
-.quote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0;font-size:15px;font-style:italic}
-.points{margin:8px 0;padding-left:18px}
-.points li{margin:3px 0}
-.pcm{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.pcm span{font-size:12.5px;border-radius:8px;padding:3px 9px}
-.pcm .p{background:var(--pos-bg);color:var(--pos)}
-.pcm .m{background:var(--neg-bg);color:var(--neg)}
-.pcm .w{background:var(--mix-bg);color:var(--mix)}
-.trh{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:18px 0 4px;padding-top:12px;border-top:1px solid var(--line);font-weight:600}
-.tr{margin:0 -8px}
-.seg{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:6px 8px;border-radius:8px;cursor:pointer;transition:background .12s}
-.seg:hover{background:var(--surface-2)}
-.seg.on{background:var(--hl)}
-.seg time{font-size:12px;color:var(--ink-3);padding-top:2px;font-variant-numeric:tabular-nums}
-.seg b{font-size:12px;font-weight:600;color:var(--sp);display:block}
-.seg p{margin:0}
-.empty{color:var(--ink-3);font-style:italic;font-size:14px}
-footer{margin-top:40px;color:var(--ink-3);font-size:12.5px}
+/* ——— hero ——— */
+.hero{position:relative;min-height:100svh;display:grid;align-content:end;padding:120px clamp(16px,5vw,64px) clamp(40px,7vh,80px);overflow:hidden;isolation:isolate}
+.hero svg.topo{position:absolute;inset:-10% -20% auto auto;width:min(1100px,140vw);height:auto;z-index:-1;color:var(--contour)}
+.kicker{font:500 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.kicker b{font-weight:500;color:var(--cran)}
+.hero h1{font:800 clamp(44px,9.2vw,148px)/.92 var(--display);letter-spacing:-.035em;margin:22px 0 0;text-wrap:balance}
+.hero h1 .sub{display:block;font-weight:400;font-size:.36em;letter-spacing:-.01em;line-height:1.1;margin-top:.5em;color:var(--ink-2);max-width:18ch}
+.hero h1 .sub em{font-style:normal;color:var(--fir)}
+.lede{max-width:62ch;margin:40px 0 0;font-size:clamp(18px,1.6vw,21px);color:var(--ink-2)}
+.lede::first-letter{font:800 3.4em/.8 var(--display);float:left;margin:.08em .1em 0 0;color:var(--cran)}
+.tally{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:48px;border-top:1px solid var(--ink);max-width:1100px}
+.tally div{padding:16px 16px 0 0;border-right:1px solid var(--line);padding-left:16px}
+.tally div:first-child{padding-left:0}
+.tally div:last-child{border-right:0}
+.tally b{display:block;font:600 clamp(30px,4.4vw,56px)/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tally span{display:block;margin-top:8px;font:400 12px/1.4 var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
 
-@media (max-width:860px){
-  .overview{grid-template-columns:1fr}
-  .card{grid-template-columns:1fr;gap:14px;padding:16px}
-  .vid{position:static;max-width:300px;width:100%;margin:0 auto}
-  .wrap{padding:20px 16px 60px}
-  h1{font-size:24px}
+/* ——— layout ——— */
+.layout{display:grid;grid-template-columns:minmax(200px,260px) minmax(0,68ch) 1fr;gap:clamp(24px,4vw,64px);padding:0 clamp(16px,5vw,64px);max-width:1440px;margin:0 auto}
+.route{position:sticky;top:84px;align-self:start;padding:32px 0;max-height:calc(100vh - 100px);overflow:auto}
+.route h2{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 18px}
+.route ol{list-style:none;margin:0;padding:0;position:relative}
+.route ol::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 11px)}
+.route li{position:relative;padding:0 0 14px 26px}
+.route li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink-3);transition:background .25s,border-color .25s,transform .25s}
+.route li.done::before{background:var(--fir);border-color:var(--fir)}
+.route li.now::before{background:var(--cran);border-color:var(--cran);transform:scale(1.25)}
+.route a{text-decoration:none;display:block;font-size:14px;line-height:1.35;color:var(--ink-2)}
+.route a small{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.1em;color:var(--ink-3);margin-bottom:4px}
+.route li.now a{color:var(--ink)}
+.route a:hover{color:var(--ink)}
+.route .exit{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.route .exit a{font:500 12px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--cran)}
+
+article{padding:24px 0 80px;min-width:0}
+section.km{padding-top:72px;scroll-margin-top:60px}
+.mark{display:flex;align-items:baseline;gap:14px;margin-bottom:10px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cran)}
+.mark::after{content:"";flex:1;height:1px;background:var(--line);transform:translateY(-3px)}
+h2.t{font:600 clamp(30px,3.6vw,46px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 28px;text-wrap:balance}
+h3{font:600 20px/1.25 var(--display);letter-spacing:-.01em;margin:44px 0 12px}
+h3::before{content:"◆ ";color:var(--larch);font-size:.6em;vertical-align:.25em}
+h4{font:500 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);margin:32px 0 10px}
+p{margin:0 0 1.05em}
+strong{font-weight:600}
+ul,ol.num{padding-left:1.2em;margin:0 0 1.2em}
+li{margin:.3em 0}
+li::marker{color:var(--larch)}
+
+/* quotes */
+figure.q{margin:30px 0 30px;position:relative;padding:4px 0 4px 26px;border-left:3px solid var(--fir)}
+figure.q blockquote{margin:0;font:italic 500 clamp(19px,1.7vw,22px)/1.5 var(--serif);color:var(--ink)}
+figure.q figcaption{margin-top:10px;font:400 12.5px/1.5 var(--mono);color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.watch{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--fir);font-weight:500;border-bottom:1px solid currentColor;padding-bottom:1px}
+.watch::before{content:"";width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.watch:hover{color:var(--cran)}
+figure.q.neg{border-left-color:var(--cran)}
+figure.q.big{border:0;padding:0;margin:48px 0}
+figure.q.big blockquote{font:600 clamp(26px,3vw,38px)/1.2 var(--display);font-style:normal;letter-spacing:-.025em}
+figure.q.big blockquote::before{content:"«";color:var(--cran)}
+figure.q.big blockquote::after{content:"»";color:var(--cran)}
+.inline-q{font-style:italic}
+figure.q.own blockquote::before,figure.q.own blockquote::after{content:none}
+figure.q.own blockquote{padding-left:22px;border-left:6px solid var(--cran)}
+
+/* marginal notes on wide screens */
+.aside{font:400 13px/1.55 var(--mono);color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px;margin:24px 0}
+
+/* places list */
+.places{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
+.places li{margin:0;font:400 13px/1 var(--mono);padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px;list-style:none;padding:0;margin:20px 0 26px}
+.products li{margin:0;background:var(--card);border:1px solid var(--line);padding:18px 18px 16px;border-radius:4px;position:relative;overflow:hidden}
+.products li::after{content:"";position:absolute;right:-18px;top:-18px;width:64px;height:64px;border-radius:50%;background:var(--c);opacity:.18}
+.products li:first-child{--c:var(--cran)}
+.products li:last-child{--c:var(--larch)}
+
+/* blind spots */
+.blind{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0 28px}
+.blind li{margin:0;background:var(--paper);padding:18px;font-size:16px;line-height:1.45}
+.blind li::before{content:"?";display:block;font:800 26px/1 var(--display);color:var(--larch);margin-bottom:10px}
+
+/* obstacles */
+.obst{list-style:none;padding:0;margin:26px 0 30px;counter-reset:o;display:grid;gap:14px}
+.obst li{counter-increment:o;margin:0;display:grid;grid-template-columns:64px 1fr;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--cran)}
+.obst li::before{content:"0" counter(o);font:800 34px/1 var(--display);color:var(--cran);letter-spacing:-.04em}
+
+/* two models */
+.models{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+.models > div{padding:22px;border:1px solid var(--line);background:var(--card)}
+.models > div p:last-child{margin-bottom:0}
+.models .tag{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fir);display:block;margin-bottom:12px}
+.equals{text-align:center;font:600 clamp(20px,2.4vw,28px)/1.25 var(--display);letter-spacing:-.02em;padding:26px 10px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:30px 0}
+.equals span{color:var(--cran)}
+
+/* match / mismatch */
+.verdict{position:relative;padding:4px 0 4px 24px;margin:6px 0 10px}
+.verdict::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px}
+.verdict.yes::before{background:var(--fir)}
+.verdict.no::before{background:var(--cran)}
+.verdict h3::before{content:none}
+.verdict.yes h3{color:var(--fir)}
+.verdict.no h3{color:var(--cran)}
+
+/* channels */
+.chan{list-style:none;padding:0;display:grid;gap:12px;margin:18px 0 26px}
+.chan li{margin:0;padding:16px 18px;border:1px solid var(--line);background:var(--card)}
+.chan li strong{display:block;font:600 15px/1.3 var(--display);letter-spacing:-.01em;margin-bottom:6px}
+.legal{list-style:none;padding:0;margin:18px 0}
+.legal li{padding:16px 18px;margin:0 0 10px;background:var(--larch-soft);border-left:4px solid var(--larch)}
+
+/* review CTA */
+.cta{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;margin:56px 0 0;padding:26px;background:var(--fir);color:var(--paper);text-decoration:none;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.cta:hover{transform:translateY(-3px)}
+.cta .n{font:800 64px/.9 var(--display);letter-spacing:-.05em}
+.cta .txt b{display:block;font:600 19px/1.25 var(--display);letter-spacing:-.01em}
+.cta .txt span{display:block;margin-top:6px;font:400 13px/1.5 var(--mono);opacity:.8}
+.cta .go{font:600 26px/1 var(--display);width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor;transition:background .25s,color .25s}
+.cta:hover .go{background:var(--paper);color:var(--fir)}
+.cta::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 22px,rgba(255,255,255,.04) 22px 23px);pointer-events:none}
+
+/* conclusions */
+#km8{padding-top:96px}
+.concl{margin:30px -26px 0;padding:34px 26px 10px;background:var(--ink);color:var(--paper);position:relative}
+.concl h3{color:var(--paper);margin-top:0}
+.concl h3::before{color:var(--larch)}
+.concl ul{list-style:none;padding:0;counter-reset:c}
+.concl ul li{counter-increment:c;display:grid;grid-template-columns:44px 1fr;gap:10px;padding:14px 0;margin:0;border-top:1px solid rgba(255,255,255,.14)}
+.concl ul li::before{content:counter(c,decimal-leading-zero);font:500 13px/1.9 var(--mono);color:var(--larch)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .concl{background:#e9e2d2;color:#16251d}
+  :root:not([data-theme="light"]) .concl h3{color:#16251d}
+  :root:not([data-theme="light"]) .concl ul li{border-top-color:rgba(0,0,0,.12)}
+  :root:not([data-theme="light"]) .concl ul li::before,:root:not([data-theme="light"]) .concl h3::before{color:#a3651a}}
+:root[data-theme="dark"] .concl{background:#e9e2d2;color:#16251d}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 0}
+.groups > div{padding:22px;background:var(--card)}
+.groups .hyp{border:2px dashed var(--larch)}
+.groups .open{border:2px dotted var(--cran)}
+.groups h3{margin-top:0;font-size:17px}
+.groups h3::before{content:none}
+.groups .hyp h3{color:var(--larch)}
+.groups .open h3{color:var(--cran)}
+.groups ul{padding-left:1.1em;margin:0;font-size:16.5px;line-height:1.55}
+.groups li{margin:.55em 0}
+
+hr.cut{border:0;height:24px;margin:60px 0 0;background:radial-gradient(circle,var(--ink-3) 1.4px,transparent 1.6px) center/14px 24px repeat-x;opacity:.6}
+
+footer{border-top:1px solid var(--line);padding:40px clamp(16px,5vw,64px) 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;font:400 13px/1.5 var(--mono);color:var(--ink-3)}
+footer a{color:var(--cran);text-decoration:none;font-weight:500}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.hero .ld{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .ld:nth-child(2){animation-delay:.08s}.hero .ld:nth-child(3){animation-delay:.18s}.hero .ld:nth-child(4){animation-delay:.28s}
+@keyframes up{from{opacity:0;transform:translateY(26px)}}
+@media (prefers-reduced-motion: reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .hero .ld{animation:none}
+  .cta,.cta:hover{transform:none}
+}
+
+/* ——— responsive ——— */
+@media (max-width:1180px){
+  .layout{grid-template-columns:220px minmax(0,1fr)}
+}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .route{display:none}
+  .bar nav a.hide-m{display:none}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .tally{grid-template-columns:1fr 1fr}
+  .tally div{padding:14px 12px 14px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .tally div:nth-child(odd){border-right:1px solid var(--line)}
+  .tally div:nth-child(even){padding-left:12px}
+  .products,.blind,.models,.groups{grid-template-columns:1fr}
+  .obst li{grid-template-columns:1fr;gap:6px}
+  .cta{grid-template-columns:1fr;gap:12px}
+  .cta .go{display:none}
+  .concl{margin:30px -16px 0;padding:28px 16px 6px}
+  figure.q{padding-left:18px}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <div>
-      <h1>Видео-отзывы RUNGEL</h1>
-      <div class="sub" id="sub"></div>
-    </div>
+
+<header class="bar">
+  <a class="brand" href="#top">RUN<i>G</i>EL</a>
+  <nav>
+    <a class="hide-m" href="#km8">Выводы</a>
+    <a class="pill" href="reviews.html">Видео-отзывы →</a>
+  </nav>
+  <div class="progress" id="progress"></div>
+</header>
+
+<section class="hero" id="top">
+  <svg class="topo" viewBox="0 0 1000 800" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+    <path d="M520 400c0-60 70-110 160-110s170 50 170 115-80 120-175 120-155-65-155-125z"/>
+    <path d="M460 400c0-95 100-170 225-170s235 75 235 175-115 185-245 185-215-95-215-190z"/>
+    <path d="M400 405c0-130 130-235 290-235s300 100 300 235-150 250-310 250-280-120-280-250z"/>
+    <path d="M335 410c0-165 160-300 355-300s365 130 365 300-185 315-380 315-340-150-340-315z"/>
+    <path d="M270 415c0-200 190-365 420-365s430 160 430 365-215 380-450 380-400-180-400-380z"/>
+    <path d="M200 420C200 180 420-15 690-15s500 190 500 435-250 445-520 445S200 660 200 420z"/>
+    <path d="M130 425c0-275 250-505 560-505s570 220 570 505-285 510-595 510S130 700 130 425z"/>
+    <path d="M60 430c0-310 280-570 630-570s640 250 640 575-320 575-670 575S60 745 60 430z"/>
+    <circle cx="690" cy="405" r="6" fill="currentColor" stroke="none"/>
+  </svg>
+  <div class="kicker ld"><b>Томск</b><span>·</span><span>Октябрь 2026</span><span>·</span><span>Лонгрид, 8 отметок</span></div>
+  <h1 class="ld">RUNGEL<span class="sub">от видео-отзывов <em>к&nbsp;рекламной стратегии</em></span></h1>
+  <p class="lede ld">Этот текст — запись одного рассуждения. Оно началось с четырнадцати коротких видео и закончилось пониманием того, как небольшой томской компании выходить к покупателю. По пути были идеи, которые не выдержали проверки, и идеи, которые её выдержали. Вывод собран в самом конце. До него текст идёт в том порядке, в каком шла мысль: сначала факты, потом предположения, потом их проверка.</p>
+  <div class="tally ld">
+    <div><b>14</b><span>вертикальных видео</span></div>
+    <div><b>≈8</b><span>минут записи</span></div>
+    <div><b>10</b><span>роликов с мнением</span></div>
+    <div><b>2</b><span>линейки гелей</span></div>
   </div>
+</section>
 
-  <section class="overview">
-    <div class="panel">
-      <h2>Общая картина</h2>
-      <p class="headline" id="headline"></p>
-      <ul id="opoints"></ul>
-    </div>
-    <div class="panel">
-      <h2>В цифрах</h2>
-      <div class="stats" id="stats"></div>
-      <div class="bar" id="bar"></div>
-      <div class="legend" id="legend"></div>
-      <div class="pc" id="pc"></div>
-    </div>
-  </section>
+<div class="layout">
+  <aside class="route" aria-label="Содержание">
+    <h2>Маршрут</h2>
+    <ol id="route">
+      <li><a href="#km1"><small>КМ 1</small>С чего всё началось</a></li>
+      <li><a href="#km2"><small>КМ 2</small>Что показали видео</a></li>
+      <li><a href="#km3"><small>КМ 3</small>Чего видео не показывают</a></li>
+      <li><a href="#km4"><small>КМ 4</small>Продавать сразу или прогреть</a></li>
+      <li><a href="#km5"><small>КМ 5</small>Как это делают другие</a></li>
+      <li><a href="#km6"><small>КМ 6</small>Лонгрид в стиле AG1</a></li>
+      <li><a href="#km7"><small>КМ 7</small>Ограничения России</a></li>
+      <li><a href="#km8"><small>ФИНИШ</small>Выводы</a></li>
+    </ol>
+    <div class="exit"><a href="reviews.html">▶ Все 14 видео-отзывов</a></div>
+  </aside>
 
-  <main id="list"></main>
-  <footer>Транскрипция: faster-whisper large-v3 · диаризация: pyannote community-1 · тексты вычитаны вручную, неразборчивые места помечены [неразборчиво]. Клик по реплике перематывает видео.</footer>
+  <article>
+
+    <!-- 1 -->
+    <section class="km" id="km1">
+      <div class="mark rv">Отметка 01</div>
+      <h2 class="t rv">С чего всё началось</h2>
+      <p class="rv">RUNGEL — локальный томский производитель гелей. Производство только запускается. Линеек две:</p>
+      <ul class="products rv">
+        <li><strong>иммунный гель</strong> с пихтой, лиственницей и клюквой;</li>
+        <li><strong>спортивные гели</strong> для забегов, например «Восстановление».</li>
+      </ul>
+      <p class="rv">На входе было 14 вертикальных видео общей длиной около восьми минут. Их снимали без сценария, в разных местах:</p>
+      <ul class="places rv">
+        <li>фитнес-клуб;</li>
+        <li>детский спортивный праздник;</li>
+        <li>стенд на конференции;</li>
+        <li>палатка у старта соревнований;</li>
+        <li>финиш полумарафона.</li>
+      </ul>
+      <p class="rv">Почти везде вопросы за кадром задаёт Иван Гусаков. Это подтвердило сравнение голосов: его голос совпадает с закадровым в большинстве роликов.</p>
+      <p class="rv">Все видео расшифровали, разметили по спикерам и вычитали вручную. Из четырнадцати роликов мнение о продукте есть в десяти. Остальные — вопросы без ответа, поздравление и ролик без речи.</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="km" id="km2">
+      <div class="mark rv">Отметка 02</div>
+      <h2 class="t rv">Что показали видео</h2>
+
+      <h3 class="rv">Иммунный гель</h3>
+      <p class="rv">Его принимают как средство при первых признаках простуды. Лена Ходова, амбассадор бренда и соорганизатор Томского марафона, описывает это так:</p>
+      <figure class="q rv">
+        <blockquote>«Я чувствую, когда горло немножко болит, когда большая нагрузка — там спорт, работа… смена температуры. Чувствуется, что иммунитет немножко падает, и, например, вечером принимаю, ночью спокойно сплю и утром просыпаюсь как огурчик».</blockquote>
+        <figcaption><span>Лена Ходова, стенд на конференции</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-06">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Ценит она не только эффект, но и простоту:</p>
+      <figure class="q rv">
+        <blockquote>«Не надо придумывать себе смесь каких-то витаминов C, чего-то ещё, притом что ты не специалист в этом вопросе».</blockquote>
+        <figcaption><span>Лена Ходова</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-06">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Вкус с первого раза воспринимается настороженно. У двух разных людей реакция одинаковая.</p>
+      <p class="rv">Анастасия Александрова, управляющая фитнес-клуба Power Club Arena, пробует гель впервые:</p>
+      <figure class="q big neg rv">
+        <blockquote>Что за кислятина, что это?</blockquote>
+        <figcaption><span>Анастасия Александрова, Power Club Arena</span><a class="watch" href="reviews.html#video_2026-10-02_19-54-38">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Лена вспоминает своё первое впечатление:</p>
+      <figure class="q rv">
+        <blockquote>«На первый взгляд вкус кажется таким странным, потому что непривычный, очень такой сибирский».</blockquote>
+        <figcaption><span>Лена Ходова</span><a class="watch" href="reviews.html#video_2026-10-02_19-54-48">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Через несколько секунд или после нескольких приёмов отношение меняется. Анастасия: <span class="inline-q">«прикольная штука»</span>. Лена: вкус <span class="inline-q">«уже родной»</span>. Вкусы люди называют сами, без подсказки: пихта, лиственница, клюква, <span class="inline-q">«ягодное послевкусие»</span>.</p>
+      <p class="rv">Ещё одна деталь из дегустации: Анастасия не знала, как употреблять гель.</p>
+      <figure class="q rv">
+        <blockquote>«Ты мне скажи, его прям весь надо?»</blockquote>
+        <figcaption><span>Анастасия Александрова</span><a class="watch" href="reviews.html#video_2026-10-02_19-54-38">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Иван объясняет: <span class="inline-q">«не переворачивай, просто нажимай»</span>.</p>
+
+      <h3 class="rv">Спортивный гель</h3>
+      <p class="rv">Оксана, одна из первых амбассадоров в Томске (клуб «Спорттрек»), выполнила норматив мастера спорта. Перед чемпионатом России по скайраннингу она говорит:</p>
+      <figure class="q big rv">
+        <blockquote>Это реально для спортсменов прям надёжная выручка и помощь при забеге, при тренировках.</blockquote>
+        <figcaption><span>Оксана, клуб «Спорттрек»</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-10">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">И про свой клуб:</p>
+      <figure class="q rv">
+        <blockquote>«…и мы, соответственно, без него ни на какие старты уже не ездим».</blockquote>
+        <figcaption><span>Оксана</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-10">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Самый содержательный ролик снят после полумарафона. Маруся описывает гель конкурента GU, который брала на дистанцию:</p>
+      <figure class="q neg rv">
+        <blockquote>«Он очень плотный, он такой тягучий… Во рту и так слюны мало, то есть нечему его разжевать, и начинает дыхание сбиваться, когда бежишь».</blockquote>
+        <figcaption><span>Маруся, финиш полумарафона — о геле GU</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-38">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">Её спутник, по голосу Иван, говорит про RUNGEL:</p>
+      <figure class="q rv">
+        <blockquote>«Очень классная текстура, легко заходит, натуральные соки».</blockquote>
+        <figcaption><span>Иван, о RUNGEL</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-38">смотреть видео</a></figcaption>
+      </figure>
+      <p class="rv">И тут же объясняет, почему Маруся бежала не с RUNGEL:</p>
+      <figure class="q big rv">
+        <blockquote>Маше я RUNGEL не дал, потому что она у меня его не просила.</blockquote>
+        <figcaption><span>Иван</span><a class="watch" href="reviews.html#video_2026-10-02_19-55-38">смотреть видео</a></figcaption>
+      </figure>
+
+      <h3 class="rv">Где продукт уже продаётся</h3>
+      <ul class="rv">
+        <li>Фитнес-клуб продаёт гели на тренировках.</li>
+        <li>Клуб «Спорттрек» использует их всей командой.</li>
+        <li>На соревнованиях гель продавался в палатке у старта. Гостья нашла его случайно и назвала это <a class="inline-q" href="reviews.html#video_2026-10-02_19-55-25">«очень приятным сюрпризом»</a>.</li>
+        <li>Дети на спортивном празднике попробовали и ответили <a class="inline-q" href="reviews.html#video_2026-10-02_19-54-44">«вкусно», «нормально»</a>.</li>
+      </ul>
+
+      <h3 class="rv">Упаковка и пожелания</h3>
+      <p class="rv">Про <a href="reviews.html#video_2026-10-02_19-54-57">«несовершенную упаковку»</a> говорит сам представитель бренда, обращаясь к покупателям у стенда. Конкретных претензий от покупателей на записи нет. Бренд обещает новый станок примерно через три месяца.</p>
+      <p class="rv">Оксана <a href="reviews.html#video_2026-10-02_19-55-20">просит мерч</a>: она готова показывать бренд на стартах.</p>
+
+      <a class="cta rv" href="reviews.html">
+        <span class="n">14</span>
+        <span class="txt"><b>Все видео-отзывы целиком</b><span>расшифровка, спикеры, тональность — клик по реплике перематывает видео</span></span>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <!-- 3 -->
+    <section class="km" id="km3">
+      <div class="mark rv">Отметка 03</div>
+      <h2 class="t rv">Чего видео не показывают</h2>
+      <p class="rv">О некоторых вещах в видео не говорит никто:</p>
+      <ul class="blind rv">
+        <li>о цене;</li>
+        <li>о том, как гель переносит желудок (для спортивных гелей это одна из главных тем);</li>
+        <li>о том, сколько гелей нужно на дистанцию;</li>
+        <li>о конкретном эффекте спортивного геля, кроме общих «выручает» и «помогает».</li>
+      </ul>
+      <p class="rv">Важно и то, кто говорит. Почти все опрошенные — амбассадоры, партнёры или знакомые бренда. Гостья соревнований прямо называет создателей «моими замечательными друзьями». Вопросы задаёт представитель бренда, на камеру. Два интервью с незнакомыми посетителями стенда закончились без ответа на записи.</p>
+      <figure class="q big own rv">
+        <blockquote>Поэтому отсутствие негатива о RUNGEL — это свойство выборки, а не доказательство.</blockquote>
+      </figure>
+      <p class="rv">Единственный негатив в записях относится к гелю конкурента.</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="km" id="km4">
+      <div class="mark rv">Отметка 04</div>
+      <h2 class="t rv">Первый вопрос: продавать сразу или сначала прогреть</h2>
+      <p class="rv">Отсюда возник первый вопрос: стоит ли сразу продавать напрямую? Человек видит лендинг, и его тут же зовут купить. Или лучше сначала подогреть его прелендингом?</p>
+      <p class="rv">Если смотреть на факты из видео, на пути к покупке у человека три препятствия:</p>
+      <ol class="obst rv">
+        <li><div><strong>Вкус.</strong> С первого раза он отталкивает, а нравится только после нескольких проб. Человек, купивший упаковку вслепую, может решить, что продукт плохой, хотя ему просто не хватило второй попытки.</div></li>
+        <li><div><strong>Способ употребления.</strong> Без подсказки он непонятен, это видно на дегустации у Анастасии.</div></li>
+        <li><div><strong>Первая проба.</strong> Маруся бежала рядом с человеком, у которого был RUNGEL, но взяла гель конкурента. Не потому что её разубедили, а потому что не попросила.</div></li>
+      </ol>
+      <p class="rv">Прямая продажа хорошо работает, когда продукт понятен, а покупатель уже чего-то хочет. Здесь продукт сначала нужно объяснить. Вопрос «лендинг или прелендинг» оказался вторичным. Главный вопрос в другом: о каком первом шаге просить человека.</p>
+      <figure class="q big own rv">
+        <blockquote>Похоже, этот шаг — попробовать, а не купить.</blockquote>
+      </figure>
+    </section>
+
+    <!-- 5 -->
+    <section class="km" id="km5">
+      <div class="mark rv">Отметка 05</div>
+      <h2 class="t rv">Как это делают другие</h2>
+      <p class="rv">Две модели оказались полезными для сравнения.</p>
+      <div class="models rv">
+        <div>
+          <span class="tag">Модель 1</span>
+          <p><strong>Спортивные гели.</strong> Крупные бренды выросли в первую очередь через пробу в нужный момент. Maurten — официальный партнёр крупнейших марафонов и стартов IRONMAN: его гели раздают на пунктах питания. Бегуны консервативны. На гонку они берут то, что уже пробовали, и проба на старте или тренировке весит больше рекламы.</p>
+        </div>
+        <div>
+          <span class="tag">Модель 2</span>
+          <p><strong>DTC-бренды здоровья</strong>, классический пример — AG1. Для холодной аудитории у них длинная страница, которая сначала объясняет и снимает возражения, а потом делает предложение. Первый шаг облегчён подарками: при первой покупке подписки AG1 годами давал бесплатные дорожные упаковки. Основной канал — подкасты: ведущий сам рассказывает о продукте и даёт персональную ссылку.</p>
+        </div>
+      </div>
+      <p class="equals rv">У обеих моделей один общий знаменатель: <span>сначала проба, потом продажа.</span></p>
+    </section>
+
+    <!-- 6 -->
+    <section class="km" id="km6">
+      <div class="mark rv">Отметка 06</div>
+      <h2 class="t rv">Идея лонгрида в стиле AG1 и её проверка</h2>
+      <p class="rv">Следующий шаг рассуждения — идея Романа: упаковать опыт спортсменов в большой лонгрид, который объясняет, почему стоит попробовать. Внизу — разовая покупка небольшого набора или подписка. Для иммунного геля — то же самое, но на историях семей и взрослых людей. Привести на этот лонгрид платный трафик: видеорекламу, Яндекс Директ.</p>
+
+      <div class="verdict yes rv">
+        <h3>Что в идее совпадает с фактами</h3>
+        <p>Длинная страница — это и есть прогрев, только встроенный в сам лендинг. Она закрывает те препятствия, которые видны в видео: объясняет вкус, показывает способ употребления. Небольшой пробный набор снижает риск первой покупки. С этой стороны формат подходит RUNGEL лучше прямой продажи.</p>
+      </div>
+
+      <div class="verdict no rv">
+        <h3>Что не совпадает</h3>
+        <p><strong>Подписка держится на ежедневной привычке.</strong> AG1 пьют каждое утро, поэтому подписка для них естественна. По видео гели RUNGEL используют эпизодически: спортивный — на стартах и длинных тренировках, иммунный — «когда горло немножко болит». Подписка на то, что нужно по ситуации, рискует копиться дома и отменяться после второй посылки. Подписка на иммунный гель имеет смысл только в одном случае: если продукт можно принимать курсом для профилактики. Это вопрос к технологу, а не к маркетингу. И если ответ «да», меняется сам сценарий употребления.</p>
+        <p><strong>AG1 может терять деньги на первом заказе.</strong> Компания большая и знает, сколько клиент принесёт за всё время. Для небольшого бренда платный клик в Директе, приведший к заказу пробного набора, скорее всего, стоит дороже прибыли с этого заказа. Модель окупается только за счёт повторных покупок. Доставка маленькой посылки по России может съесть всю маржу набора.</p>
+        <p><strong>Производство только запускается.</strong> Новая упаковка появится через три месяца. В модели AG1 первая посылка, которую получает человек, и есть первое впечатление о бренде.</p>
+      </div>
+
+      <h3 class="rv">Почему спортивный гель раньше иммунного</h3>
+      <p class="rv">Для спортивного геля всё нужное уже есть: реальные спортсмены (мастер спорта, соорганизатор марафона, клубы), живые видео, конкретное сравнение с конкурентом по текстуре. Доказательства не нужно собирать или придумывать.</p>
+      <p class="rv">Для иммунного геля в записях пока два человека. Истории семей ещё предстоит собрать, и они должны быть настоящими. К тому же у рекламы иммунного геля есть юридические рамки. Если продукт оформлен как БАД, в рекламе обязательна пометка, что он не является лекарственным средством (ч. 1.1 ст. 25 закона «О рекламе»). Утверждения о лечении и иммунитете ограничены. Если в историях появятся дети, встанет отдельный вопрос: разрешён ли продукт детям.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="km" id="km7">
+      <div class="mark rv">Отметка 07</div>
+      <h2 class="t rv">Ограничения России: нет подкастов и нет миллионов</h2>
+      <p class="rv">Дальше рассуждение упёрлось в два ограничения. Продукт будет продаваться только в России. На рекламу нет больших оборотных средств. Главный канал AG1 — подкасты, а в России этого рынка по сути нет.</p>
+
+      <h3 class="rv">Что на самом деле работает в модели AG1</h3>
+      <p class="rv">Если разобрать модель AG1, ядро у неё не в подкастах, а в механике:</p>
+      <ol class="num rv">
+        <li>человек, которому доверяет аудитория;</li>
+        <li>личная рекомендация;</li>
+        <li>персональный промокод;</li>
+        <li>страница с выгодным пробным предложением.</li>
+      </ol>
+      <p class="rv">Подкасты в США были просто самым удобным носителем такого доверия. В России у этой механики другие носители:</p>
+      <ul class="chan rv">
+        <li><strong>Авторские Telegram-каналы</strong> — ближайший аналог. Тот же формат «автор лично советует». Нишевый канал беговых тренеров, трейлраннеров, триатлонистов или лыжников на несколько тысяч подписчиков даёт больше доверия и стоит дешевле крупного.</li>
+        <li><strong>Видеоблогеры.</strong> YouTube в России с конца 2024 года фактически заблокирован, время просмотра по данным Mediascope упало на две трети. Аудитория постепенно перетекает в VK Видео, поэтому видеоформат имеет смысл искать в первую очередь там.</li>
+      </ul>
+
+      <h3 class="rv">Каналы, где платят за результат, а не за показы</h3>
+      <p class="rv">При малом бюджете важно, чтобы деньги уходили после продажи, а не до неё. Таких каналов в рассуждении появилось несколько:</p>
+      <ul class="chan rv">
+        <li><strong>Партнёрская программа с промокодами.</strong> Тренеры, клубы и амбассадоры получают персональный код: покупателю скидка, партнёру процент с продажи. Первые участники уже есть — Оксана, Лена, «Спорттрек», Power Club Arena. Просьба Оксаны о мерче естественно ложится сюда же.</li>
+        <li><strong>Партнёрство с забегами.</strong> Гели на пунктах питания, пробник в стартовом пакете, статус официального геля старта. Это та самая модель Maurten в региональном масштабе. Региональные старты часто берут партнёров продукцией, а не деньгами. Лена — соорганизатор Томского марафона.</li>
+        <li><strong>Перехват готового спроса.</strong> Люди уже ищут энергетические гели в поиске и на маркетплейсах. Реклама по таким запросам обращается к тому, кто уже хочет купить, а её бюджет легко держать под контролем.</li>
+        <li><strong>Оптовые продажи клубам.</strong> Один договор — десятки постоянных покупателей, как в Power Club Arena.</li>
+      </ul>
+
+      <h3 class="rv">Сезонность</h3>
+      <p class="rv">Для томской компании есть ещё одно наблюдение. Беговой сезон в Сибири заканчивается в октябре, а зимой начинаются лыжные гонки и лыжные марафоны. Это тоже спортсмены на выносливость, которые едят гели на дистанции. Сюда же относятся триатлон, велоспорт и трейл: тот же продукт, но другие сообщества и другой календарь стартов.</p>
+
+      <h3 class="rv">Юридические рамки</h3>
+      <ul class="legal rv">
+        <li><strong>Маркировка.</strong> Любая реклама в интернете, включая посты блогеров в Telegram и бартерные интеграции, должна быть промаркирована: пометка «Реклама», данные рекламодателя, токен erid, передача сведений через оператора рекламных данных.</li>
+        <li><strong>Instagram.</strong> С 1 сентября 2025 года запрещено размещать рекламу на ресурсах организаций, признанных в России экстремистскими или нежелательными. Сюда относится Instagram.</li>
+      </ul>
+    </section>
+
+    <hr class="cut">
+
+    <!-- 8 -->
+    <section class="km" id="km8">
+      <div class="mark rv">Финиш</div>
+      <h2 class="t rv">Выводы</h2>
+      <p class="rv">Всё сказанное выше сводится к нескольким утверждениям. Это следствия из фактов и проверенных идей, а не набор указаний.</p>
+
+      <div class="concl rv">
+        <h3>Что видно уже сейчас</h3>
+        <ul>
+          <li><span>Отзывы о RUNGEL тёплые. Но опрошены в основном свои люди, поэтому реальное отношение незнакомых покупателей пока неизвестно.</span></li>
+          <li><span>Главное препятствие — первая проба, а не убеждение. Вкус раскрывается не с первого раза, способ употребления неочевиден. Это одинаково видно на дегустации, в рассказе Лены и в истории Маруси.</span></li>
+          <li><span>Спортивный гель готов к продвижению. Для него есть реальные спортсмены, видео и конкретное отличие от конкурента — текстура. Иммунному гелю не хватает историй и ясности с юридическими рамками.</span></li>
+          <li><span>Длинная страница с пробным набором подходит RUNGEL лучше прямой продажи. Подписка как основная модель противоречит тому, как гели используют на самом деле.</span></li>
+          <li><span>Механика AG1 переносится в Россию без подкастов: доверенный автор, личная рекомендация, промокод. В российских условиях её носители — нишевые Telegram-каналы, VK Видео, тренеры и клубы.</span></li>
+          <li><span>При малом бюджете естественная опора — каналы, где платят за результат: партнёрские промокоды, забеги, поиск, клубы. Офлайн в Томске сейчас самый сильный канал, а не дополнение к рекламе.</span></li>
+        </ul>
+      </div>
+
+      <div class="groups rv">
+        <div class="hyp">
+          <h3>Гипотезы, которые предстоит проверить</h3>
+          <ul>
+            <li>Сколько людей покупает повторно после пробного набора. Это главная цифра всей модели.</li>
+            <li>Что обходится дешевле: длинная страница или прямая продажа. Это можно сравнить небольшим тестом вместо спора.</li>
+            <li>Выбирают ли подписку вообще, если предложить её как вариант рядом с разовой покупкой.</li>
+            <li>Какие каналы окупаются. Это покажут персональные промокоды.</li>
+          </ul>
+        </div>
+        <div class="open">
+          <h3>Открытые вопросы</h3>
+          <ul>
+            <li>Экономика пробного набора: цена, маржа, стоимость доставки и доля повторных покупок, при которой реклама окупается.</li>
+            <li>Можно ли принимать иммунный гель курсом. От ответа зависит, есть ли смысл в подписке.</li>
+            <li>Регистрационный статус продукта: пищевой продукт или БАД. От этого зависит, что можно говорить в рекламе.</li>
+            <li>Что именно не так с упаковкой с точки зрения покупателей, а не бренда.</li>
+            <li>Что скажут о продукте незнакомые люди, если спрашивать их открытыми вопросами и записывать ответы.</li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="cta rv" href="reviews.html">
+        <span class="n">▶</span>
+        <span class="txt"><b>Проверить выводы по первоисточнику</b><span>14 видео с расшифровкой и разметкой по спикерам</span></span>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+  </article>
 </div>
 
+<footer>
+  <span>RUNGEL · Томск · Октябрь 2026</span>
+  <span><a href="reviews.html">Видео-отзывы →</a> &nbsp;·&nbsp; <a href="#top">Наверх ↑</a></span>
+</footer>
+
 <script>
-const DATA = {"product": "RUNGEL", "overview": {"headline": "Отзывы тёплые, ни одного прямого негатива к самому продукту. Главные боли: непривычный «таёжный» вкус иммунного геля и упаковка.", "points": ["Сюжетов 14: десять с мнением о продукте, остальные — контекст (вопросы без ответа, поздравление, ролик без речи).", "Почти во всех роликах вопросы за кадром задаёт Иван Гусаков (подтверждено сравнением голосов).", "Две линейки: иммунный гель (пихта, лиственница, клюква) и спортивные гели для забегов (например, «Восстановление»).", "Иммунный гель хвалят за эффект: «при первых признаках простуды — вечером принял, утром как огурчик». Вкус сначала кажется странным, но к нему привыкают.", "Спортсмены и амбассадоры называют гель надёжной поддержкой на трассе, берут его на каждый старт и отмечают лёгкую текстуру.", "Сравнение с конкурентом: гель GU слишком густой и тягучий, его тяжело проглотить на бегу. RUNGEL «легко заходит».", "Что доработать: упаковку (бренд обещает новый станок через ~3 месяца). Пожелание — мерч для амбассадоров на стартах."], "pros": ["Работает: иммунитет, восстановление", "Натуральный состав, «сибирский» вкус", "Лёгкая текстура, удобно на дистанции", "Доверие амбассадоров и клубов"], "cons": ["Непривычный, кислый вкус с первого раза", "Несовершенная упаковка"], "wishes": ["Мерч и атрибутика для амбассадоров", "Доработать упаковку (уже в работе)"]}, "reviews": [{"id": "video_2026-10-02_19-54-38", "kind": "review", "title": "Первая дегустация иммунного геля: «прикольная штука», чувствуется пихта и клюква", "sentiment": "positive", "who": "Анастасия Александрова, управляющая фитнес-клуба Power Club Arena (Иркутский тракт); за кадром — Иван Гусаков", "context": "Фитнес-клуб, дегустация на камеру: пробует гель впервые", "points": ["Первая реакция на вкус: «Что за кислятина?» Через несколько секунд — «прикольная штука».", "Чётко различает вкусы: хвоя (сибирская пихта) и ягодная кислинка клюквы в послевкусии.", "Гели можно купить в клубе, их подают как средство для иммунитета."], "pros": ["Яркий натуральный вкус: пихта и клюква", "Приятное ягодное послевкусие"], "cons": ["Кислый вкус с первого раза удивляет"], "quote": "Прикольная штука, прям чувствуются вот эти травушки… пихта сибирская. И от клюквы такая кислинка", "tags": ["Дегустация", "Вкус", "Иммунитет", "Фитнес-клуб"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.7, "e": 12.9, "sp": "A", "t": "Анастасия Александрова, управляющая фитнес-клуба Power Club Arena на Иркутском тракте, красотка, и вот впервые пробует… Что ты пробуешь?"}, {"s": 13.0, "e": 16.6, "sp": "B", "t": "Я пробую гель, вот."}, {"s": 16.6, "e": 21.6, "sp": "A", "t": "Давай, очень интересны твои впечатления, первый вкус."}, {"s": 21.6, "e": 24.4, "sp": "B", "t": "Что за кислятина, что это?"}, {"s": 24.6, "e": 25.8, "sp": "B", "t": "Ты мне скажи, его прям весь надо?"}, {"s": 25.8, "e": 34.3, "sp": "A", "t": "Весь. На, и причём не переворачивай, просто нажимай, вот как будто ты космонавт, представь. И смелее, прям."}, {"s": 51.1, "e": 59.4, "sp": "B", "t": "Блин, прикольная штука. Вот прям чувствуются вот эти вот травушки… как правильно? Пихта, пихта…"}, {"s": 59.4, "e": 60.1, "sp": "A", "t": "Пихта."}, {"s": 60.1, "e": 66.8, "sp": "B", "t": "…сибирская. Вот. Ну и от клюквы такая кислинка. И послевкусие такое прям ягодное. Вообще прикольно."}, {"s": 67.0, "e": 80.5, "sp": "A", "t": "Супер, спасибо за эту дегустацию! Я хочу сказать, что вы можете приходить на тренировки и здесь приобрести эти гели для усиления иммунитета. Ребята, будьте здоровы, спасибо!"}], "file": "media/video_2026-10-02_19-54-38.mp4", "duration": 81.8}, {"id": "video_2026-10-02_19-54-44", "kind": "review", "title": "Дети на уличном спортивном празднике пробуют гель: «Вкусно!»", "sentiment": "positive", "who": "Дети — участники спортивного мероприятия", "context": "Улица, спортивный праздник. Дети пробуют гель прямо из стика", "points": ["Дети с удовольствием пробуют гель и отвечают «вкусно», «нормально».", "Продукт подходит и детской аудитории на массовых стартах."], "pros": ["Детям нравится вкус"], "cons": [], "quote": "— Как, вкусно? — Вкусно!", "tags": ["Дегустация", "Вкус", "Дети", "Мероприятие"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 6.0, "sp": "A", "t": "Как, вкусно?"}, {"s": 6.0, "e": 10.0, "sp": "B", "t": "Вкусно!"}, {"s": 10.0, "e": 12.0, "sp": "A", "t": "Ну как?"}, {"s": 12.0, "e": 14.0, "sp": "B", "t": "Нормально!"}, {"s": 20.0, "e": 22.0, "sp": "A", "t": "Получается?"}], "file": "media/video_2026-10-02_19-54-44.mp4", "duration": 22.6}, {"id": "video_2026-10-02_19-54-48", "kind": "review", "title": "Амбассадор Лена Ходова: вкус сначала странный, но «классная штука, работающая»", "sentiment": "positive", "who": "Лена Ходова, амбассадор, соорганизатор Томского марафона, руководитель клуба «Сибирский трейл»", "context": "Стенд на конференции/форуме. Рассказывает о личном опыте с иммунным гелем", "points": ["Пользуется иммунным гелем часто.", "С первого раза вкус непривычный, «очень сибирский»: пихта, лиственница, очень яркий.", "К вкусу привыкаешь, главное — что продукт работает."], "pros": ["Работает", "Яркий сибирский вкус"], "cons": ["Непривычный вкус с первого раза"], "quote": "Потом его распробуешь… Классная штука, работающая", "tags": ["Амбассадор", "Вкус", "Иммунитет", "Эффект"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 7.5, "sp": "A", "t": "Лена Ходова, это наш амбассадор, один из организаторов Томского марафона и руководитель клуба «Сибирский трейл»."}, {"s": 7.5, "e": 18.0, "sp": "A", "t": "Лена, я знаю, что вы иногда пользуетесь нашими гелями иммунными. Расскажите про личный опыт. По-честному: нравится, не нравится, вообще как?"}, {"s": 18.3, "e": 22.6, "sp": "B", "t": "Классный продукт, на самом деле часто его использую."}, {"s": 25.4, "e": 40.8, "sp": "B", "t": "На первый взгляд вкус кажется таким странным, потому что непривычный, очень такой сибирский: пихта, лиственница… Очень яркий вкус."}, {"s": 40.8, "e": 48.5, "sp": "B", "t": "Потом его распробуешь. Я просто много его уже использую, потому что классная штука, работающая."}], "file": "media/video_2026-10-02_19-54-48.mp4", "duration": 48.6}, {"id": "video_2026-10-02_19-54-52", "kind": "context", "title": "Вопрос посетителю стенда, ответа на записи нет", "sentiment": "neutral", "who": "Посетитель стенда", "context": "Стенд RUNGEL на мероприятии. Иван подходит с вопросом", "points": ["На записи только вопрос «Есть опыт потребления RUNGEL?», ответ не попал в кадр или неразборчив."], "pros": [], "cons": [], "quote": "", "tags": ["Мероприятие", "Без ответа"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 17.4, "sp": "A", "t": "У вас есть опыт потребления нашего геля RUNGEL? Можете поделиться?"}], "file": "media/video_2026-10-02_19-54-52.mp4", "duration": 18.5}, {"id": "video_2026-10-02_19-54-57", "kind": "review", "title": "Покупатели выбирают RUNGEL, несмотря на упаковку. Бренд обещает новый станок", "sentiment": "mixed", "who": "Иван Гусаков (за кадром) обращается к покупателям у стенда", "context": "Стенд на мероприятии, посетители у коробок с гелями", "points": ["Признание бренда: упаковка пока «несовершенная».", "При этом покупатели всё равно выбирают RUNGEL, а не конкурентов.", "Обещание: станок для новой упаковки уже заказан, срок около 3 месяцев."], "pros": ["Лояльность: выбирают вместо конкурентов"], "cons": ["Несовершенная упаковка"], "quote": "Несмотря на то, что у нас несовершенная упаковка, вы всё равно выбираете нас по сравнению с конкурентами", "tags": ["Упаковка", "Конкуренты", "Мероприятие"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 12.8, "sp": "A", "t": "Несмотря на то, что у нас несовершенная упаковка, вы всё равно выбираете нас по сравнению с конкурентами."}, {"s": 13.9, "e": 20.0, "sp": "A", "t": "Ну что ж, упаковку мы доработаем. Я обещаю, уже заказан станок, дайте только срок. Вот, три месяца у нас он идёт."}], "file": "media/video_2026-10-02_19-54-57.mp4", "duration": 21.1}, {"id": "video_2026-10-02_19-55-02", "kind": "context", "title": "Сбор обратной связи у стенда, ответа на записи нет", "sentiment": "neutral", "who": "Посетители стенда", "context": "Стенд на мероприятии. Иван приглашает людей поделиться мнением", "points": ["Бренд приглашает посетителей поделиться обратной связью. Ответов на записи нет."], "pros": [], "cons": [], "quote": "", "tags": ["Мероприятие", "Без ответа"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 15.2, "sp": "A", "t": "Реально? Здравствуйте, подходите, пожалуйста. Для нас это очень важно, мы собираем обратную связь о нашем продукте. И вот, ну как бы, помогает?"}, {"s": 16.3, "e": 22.0, "sp": "A", "t": "У вас есть опыт потребления RUNGEL? Вам нравится?"}], "file": "media/video_2026-10-02_19-55-02.mp4", "duration": 24.1}, {"id": "video_2026-10-02_19-55-06", "kind": "review", "title": "Одного геля хватает: вечером приняла, утром «как огурчик»", "sentiment": "positive", "who": "Лена Ходова (продолжение интервью)", "context": "Стенд на конференции. Подробно об эффекте иммунного геля", "points": ["Принимает при первых признаках: болит горло, высокая нагрузка (спорт, работа), смена погоды.", "Принимает вечером, спит спокойно, утром бодрая.", "Удивлена эффектом: не нужно самой собирать витаминные смеси без специальных знаний.", "Вкус со временем становится «родным»."], "pros": ["Быстрый эффект при простуде", "Простое готовое решение вместо витаминов", "К вкусу привыкаешь"], "cons": [], "quote": "Вечером принимаю, ночью спокойно сплю и утром просыпаюсь как огурчик", "tags": ["Иммунитет", "Эффект", "Амбассадор", "Вкус"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 3.6, "sp": "A", "t": "А потом вкус немножко так становится…"}, {"s": 3.6, "e": 5.1, "sp": "B", "t": "А как работает?"}, {"s": 5.1, "e": 6.4, "sp": "A", "t": "Работает."}, {"s": 6.4, "e": 10.5, "sp": "B", "t": "Какой у него эффект, и вообще помогает? В какие моменты употребляешь его?"}, {"s": 10.5, "e": 30.3, "sp": "A", "t": "Я чувствую, когда горло немножко болит, когда большая нагрузка — там спорт, работа, ещё какие-то нюансы, смена температуры. Чувствуется, что иммунитет немножко падает, и, например, вечером принимаю, ночью спокойно сплю и утром просыпаюсь как огурчик."}, {"s": 30.8, "e": 31.9, "sp": "B", "t": "Супер вообще. Свежая."}, {"s": 32.5, "e": 34.6, "sp": "B", "t": "То есть достаточно одного геля, чтобы победить хандру?"}, {"s": 34.8, "e": 54.1, "sp": "A", "t": "В целом да. Я на самом деле была удивлена такому эффекту, потому что не надо придумывать себе смесь каких-то витаминов C, чего-то ещё, притом что ты не специалист в этом вопросе. Просто берёшь гель, кушаешь — приятный, уже на вкус родной, можно сказать."}], "file": "media/video_2026-10-02_19-55-06.mp4", "duration": 55.9}, {"id": "video_2026-10-02_19-55-10", "kind": "review", "title": "Амбассадор Оксана: «надёжная выручка» на забегах, клуб без RUNGEL на старты не ездит", "sentiment": "positive", "who": "Оксана, одна из первых амбассадоров в Томске, бегунья, клуб «Спорттрек»", "context": "На улице, с коробками гелей. Перед чемпионатом России по скайраннингу", "points": ["Рекомендует RUNGEL всем спортсменам: «надёжная выручка» на забегах и тренировках.", "Возьмёт гели на чемпионат России по скайраннингу.", "Весь клуб уже знает продукт и без него на старты не ездит.", "«Очень вкусно и очень помогает»."], "pros": ["Поддержка на всей трассе", "Вкусно", "Командный выбор клуба"], "cons": [], "quote": "Мы без него ни на какие старты уже не ездим… Это очень вкусно и очень помогает", "tags": ["Амбассадор", "Спорт и забеги", "Эффект", "Вкус"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 15.2, "sp": "A", "t": "Оксан, два слова. Вот Дима — это наш главный технолог. Оксана — один из наших первых амбассадоров в Томске, бегунья, спортсменка, красавица, активистка. И вот два слова просто о продукте для наших [неразборчиво] и подписчиков."}, {"s": 15.2, "e": 26.7, "sp": "B", "t": "Я всем рекомендую попробовать данный продукт RUNGEL. Это реально для спортсменов прям надёжная выручка и помощь при забеге, при тренировках. Рекомендую, пробуйте."}, {"s": 26.7, "e": 29.4, "sp": "A", "t": "Оксана, вы в чемпионате России участвуете скоро?"}, {"s": 29.4, "e": 39.0, "sp": "B", "t": "Да, у нас на выходных будет проходить чемпионат России по скайраннингу, в дисциплине «гонка». И как раз он меня будет выручать и поддерживать на всей трассе."}, {"s": 39.0, "e": 40.1, "sp": "A", "t": "Вы для себя и для друзей?"}, {"s": 40.6, "e": 50.0, "sp": "B", "t": "Да, мы для наших спортсменов. Они уже тоже знают о RUNGEL, и мы, соответственно, без него ни на какие старты уже не ездим."}, {"s": 50.1, "e": 54.3, "sp": "B", "t": "Просто для нас это, конечно, честно. Да, это очень вкусно и очень помогает."}, {"s": 54.4, "e": 55.2, "sp": "A", "t": "Из какого вы клуба?"}, {"s": 55.7, "e": 57.2, "sp": "B", "t": "«Спорттрек». Клуб «Спорттрек»."}, {"s": 57.2, "e": 61.9, "sp": "A", "t": "«Спорттрек», отлично. Спасибо большое, вам побед и новых достижений!"}, {"s": 61.9, "e": 62.9, "sp": "B", "t": "Спасибо, спасибо."}], "file": "media/video_2026-10-02_19-55-10.mp4", "duration": 64.0}, {"id": "video_2026-10-02_19-55-15", "kind": "context", "title": "Поздравление Оксаны: выполнила норматив мастера спорта", "sentiment": "neutral", "who": "Оксана, амбассадор (Томск)", "context": "Продолжение интервью с Оксаной", "points": ["Оксана выполнила норматив мастера спорта, официальное подтверждение ждёт в мае–июне.", "О продукте не говорит, но это сильный социальный аргумент: амбассадор бренда — спортсменка уровня МС."], "pros": [], "cons": [], "quote": "Должно уже прийти официальное подтверждение того, что я выполнила мастера спорта", "tags": ["Амбассадор", "Спорт и забеги"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 5.9, "sp": "A", "t": "Хотим вас поздравить. Вы выполнили мастера спорта."}, {"s": 5.9, "e": 16.1, "sp": "B", "t": "Да, но ещё официально не было. Должно вот в мае–июне, наверное, прийти официальное подтверждение того, что я выполнила мастера спорта."}, {"s": 16.1, "e": 17.2, "sp": "A", "t": "Мы вас поздравляем."}, {"s": 17.4, "e": 18.4, "sp": "B", "t": "Спасибо большое."}], "file": "media/video_2026-10-02_19-55-15.mp4", "duration": 19.7}, {"id": "video_2026-10-02_19-55-20", "kind": "review", "title": "Пожелание амбассадора: мерч, чтобы показывать бренд на стартах", "sentiment": "neutral", "who": "Оксана, амбассадор (Томск)", "context": "Продолжение интервью с Оксаной", "points": ["Просит атрибутику/мерч, готова показывать бренд на стартах.", "Бренд обещает сделать."], "pros": [], "cons": [], "wishes": ["Мерч и атрибутика для амбассадоров"], "quote": "Я бы попросила от вас какую-нибудь атрибутику, мерч. Я бы готова даже на стартах показывать", "tags": ["Пожелания", "Мерч", "Амбассадор"], "speakers": {"A": "Спикер 1", "B": "Спикер 2"}, "segments": [{"s": 0.0, "e": 5.5, "sp": "A", "t": "Я бы попросила от вас, может быть, какую-нибудь атрибутику, мерч. Я была бы готова даже там, на стартах, показывать."}, {"s": 5.6, "e": 7.0, "sp": "B", "t": "Мы сделаем обязательно."}], "file": "media/video_2026-10-02_19-55-20.mp4", "duration": 7.4}, {"id": "video_2026-10-02_19-55-25", "kind": "review", "title": "Нашла RUNGEL в магазине на соревнованиях: «качественный крутой гель для бегунов»", "sentiment": "positive", "who": "Участница/гостья соревнований, знакомая создателей бренда", "context": "Соревнования (ГТО и не только), торговые палатки у старта", "points": ["Случайно нашла RUNGEL в магазине на соревнованиях — «очень приятный сюрприз».", "Рекомендует как качественный гель для бегунов, чтобы быстро восполнить силы."], "pros": ["Есть в продаже на соревнованиях", "Быстрое восполнение сил"], "cons": [], "quote": "Очень рекомендую: качественный, крутой гель для бегунов, для быстрого восполнения сил", "tags": ["Спорт и забеги", "Эффект", "Продажи на стартах"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 17.0, "sp": "A", "t": "У нас тут соревнования [неразборчиво] по ГТО, и не только. Пока готовятся спортсмены, тут работают магазинчики, и очень приятный сюрприз я увидела тут —"}, {"s": 17.0, "e": 23.0, "sp": "A", "t": "RUNGEL, который выпускают мои замечательные друзья."}, {"s": 23.0, "e": 31.1, "sp": "A", "t": "Очень рекомендую: качественный, крутой гель для бегунов, для быстрого восполнения сил."}], "file": "media/video_2026-10-02_19-55-25.mp4", "duration": 32.3}, {"id": "video_2026-10-02_19-55-30", "kind": "context", "title": "Без речи: гель «Восстановление» на фоне моря", "sentiment": "neutral", "who": "—", "context": "Берег моря. Крупный план стика геля RUNGEL «Восстановление»", "points": ["Речи нет, только визуал. Подойдёт как перебивка или B-roll для монтажа."], "pros": [], "cons": [], "quote": "", "tags": ["Без речи", "B-roll"], "speakers": {}, "segments": [], "file": "media/video_2026-10-02_19-55-30.mp4", "duration": 10.3}, {"id": "video_2026-10-02_19-55-34", "kind": "review", "title": "Короткое «искренне рекомендую»", "sentiment": "positive", "who": "Девушка с гелем в руках", "context": "Улица, селфи-видео", "points": ["Короткая рекомендация на 3 секунды. Подойдёт для нарезки."], "pros": [], "cons": [], "quote": "Рекомендация. Искренне рекомендую", "tags": ["Рекомендация"], "speakers": {"A": "Спикер 1"}, "segments": [{"s": 0.0, "e": 2.9, "sp": "A", "t": "Рекомендация. Искренне рекомендую. Ой."}], "file": "media/video_2026-10-02_19-55-34.mp4", "duration": 3.6}, {"id": "video_2026-10-02_19-55-38", "kind": "review", "title": "После полумарафона: гель конкурента «не разжевать», а RUNGEL «легко заходит»", "sentiment": "positive", "who": "Пара после полумарафона (21,1 км): Маруся и Иван Гусаков (по голосу)", "context": "Финиш полумарафона, с медалями. Сравнение с гелем GU", "points": ["Маруся на забеге пробовала гель конкурента (GU): очень плотный и тягучий, его не проглотить, сбивается дыхание.", "Спутник использовал RUNGEL на дистанции: классная текстура, легко заходит, натуральные соки.", "Маруся RUNGEL пока не пробовала, в следующий раз собирается взять."], "pros": ["Лёгкая текстура, удобно на бегу", "Натуральные соки"], "cons": [], "quote": "Я применял RUNGEL на дистанции, и мне очень понравился. Очень классная текстура, легко заходит, натуральные соки — бомба вообще", "tags": ["Спорт и забеги", "Текстура", "Конкуренты"], "speakers": {"B": "Спикер 1", "A": "Спикер 2"}, "segments": [{"s": 0.0, "e": 2.0, "sp": "B", "t": "Маруся в общем тоже попробовала гель…"}, {"s": 2.0, "e": 18.0, "sp": "A", "t": "Я его ещё пробовала во время забега. Взяла, и, конечно же, его очень неудобно пить. В чём проблема: он очень плотный, он такой тягучий. То есть когда ты бежишь, у тебя и так дыхание…"}, {"s": 18.0, "e": 22.0, "sp": "B", "t": "Это какой гель, ты говоришь? GU, да?"}, {"s": 22.0, "e": 37.5, "sp": "A", "t": "…может забиваться, когда ты его употребляешь. Во рту он такой тягучий, его пытаешься языком разжевать, а он не разжёвывается. Во рту и так слюны мало, то есть нечему его разжевать, и начинает дыхание сбиваться, когда бежишь. То есть, конечно, в этом плане неудобно."}, {"s": 37.7, "e": 39.3, "sp": "B", "t": "А ты RUNGEL не применяла на дистанции?"}, {"s": 39.9, "e": 40.7, "sp": "A", "t": "Нет, пока нет."}, {"s": 40.7, "e": 54.0, "sp": "B", "t": "Ага, а я применял RUNGEL на дистанции, и мне очень понравился. Очень классная текстура, легко заходит, натуральные соки — бомба вообще. Вот, а Маше я RUNGEL не дал, потому что она у меня его не просила. Вот."}, {"s": 54.0, "e": 60.4, "sp": "B", "t": "Такие дела. RUNGEL, RUNGEL, RUNGEL, RUNGEL. В следующий раз возьмёшь RUNGEL на дистанцию?"}, {"s": 61.0, "e": 61.2, "sp": "A", "t": "Да."}, {"s": 61.2, "e": 63.3, "sp": "B", "t": "Вот такие дела."}], "file": "media/video_2026-10-02_19-55-38.mp4", "duration": 64.2}]};
-const SENT = {
-  positive:{label:"Позитив", c:"--pos", b:"--pos-bg"},
-  mixed:{label:"Смешанный", c:"--mix", b:"--mix-bg"},
-  neutral:{label:"Нейтрально", c:"--neu", b:"--neu-bg"},
-  negative:{label:"Негатив", c:"--neg", b:"--neg-bg"}
-};
-const SPC = ["--spA","--spB","--spC"];
-const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const fmt = t => { t = Math.floor(t); return Math.floor(t/60) + ":" + String(t%60).padStart(2,"0"); };
+(() => {
+  const els = document.querySelectorAll(".rv");
+  if (!("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(e => io.observe(e));
 
-const R = DATA.reviews;
-const O = DATA.overview;
-const total = R.reduce((a,r)=>a+(r.duration||0),0);
-const reviewsN = R.filter(r=>r.kind==="review").length;
-$("#sub").textContent = `${R.length} видео · ${Math.round(total/60)} мин записи · ${reviewsN} с мнением о продукте`;
-$("#headline").textContent = O.headline;
-$("#opoints").innerHTML = O.points.map(p=>`<li>${esc(p)}</li>`).join("");
-
-const cnt = {}; R.forEach(r=>cnt[r.sentiment]=(cnt[r.sentiment]||0)+1);
-$("#stats").innerHTML = [
-  [cnt.positive||0, "позитивных"],
-  [cnt.negative||0, "негативных"],
-  [reviewsN, "отзывов с мнением"],
-  [Math.round(total/60)+" мин", "общая длина"]
-].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
-const order = ["positive","mixed","neutral","negative"];
-$("#bar").innerHTML = order.filter(k=>cnt[k]).map(k=>`<i style="width:${cnt[k]/R.length*100}%;background:var(${SENT[k].c})" title="${SENT[k].label}: ${cnt[k]}"></i>`).join("");
-$("#legend").innerHTML = order.filter(k=>cnt[k]).map(k=>`<span style="--c:var(${SENT[k].c})">${SENT[k].label} ${cnt[k]}</span>`).join("");
-const list = (t,a)=>a&&a.length?`<div><h3>${t}</h3><ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"";
-$("#pc").innerHTML = list("Хвалят", O.pros) + list("Критикуют", O.cons) + list("Просят", O.wishes);
-
-/* cards */
-function card(r, i){
-  const S = SENT[r.sentiment];
-  const spk = Object.keys(r.speakers||{});
-  const pcm = [...(r.pros||[]).map(x=>`<span class="p">+ ${esc(x)}</span>`), ...(r.cons||[]).map(x=>`<span class="m">− ${esc(x)}</span>`), ...(r.wishes||[]).map(x=>`<span class="w">→ ${esc(x)}</span>`)].join("");
-  const segs = r.segments.length ? r.segments.map((s,j)=>{
-    const color = SPC[spk.indexOf(s.sp)] || SPC[0];
-    return `<div class="seg" data-s="${s.s}" data-e="${s.e}" style="--sp:var(${color})"><time>${fmt(s.s)}</time><div><b>${esc(r.speakers[s.sp]||s.sp)}</b><p>${esc(s.t)}</p></div></div>`;
-  }).join("") : `<p class="empty">В видео нет речи.</p>`;
-  return `<article class="card ${r.kind}" id="${r.id}">
-    <div class="vid">
-      <video src="${esc(r.file)}" controls preload="metadata" playsinline></video>
-      <div class="meta"><span class="num">#${i+1}</span><span class="num">${fmt(r.duration)}</span><span>${esc(r.file.split("/").pop())}</span></div>
-    </div>
-    <div>
-      <div class="meta"><span class="badge" style="--c:var(${S.c});--b:var(${S.b})">${S.label}</span>${r.kind==="context"?`<span class="kind">контекст, без мнения о продукте</span>`:""}</div>
-      <h3>${esc(r.title)}</h3>
-      <p class="who">${esc(r.who)}</p>
-      <p class="ctx">${esc(r.context)}</p>
-      ${r.quote?`<blockquote class="quote">«${esc(r.quote)}»</blockquote>`:""}
-      <ul class="points">${r.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
-      ${pcm?`<div class="pcm">${pcm}</div>`:""}
-      <h4 class="trh">Транскрипция</h4>
-      <div class="tr">${segs}</div>
-    </div>
-  </article>`;
-}
-$("#list").innerHTML = R.map(card).join("");
-function bind(){
-  document.querySelectorAll(".card").forEach(c=>{
-    const v = c.querySelector("video"), segs = [...c.querySelectorAll(".seg")];
-    segs.forEach(s=>s.onclick=()=>{ v.currentTime=+s.dataset.s; v.play(); });
-    v.addEventListener("play", ()=>document.querySelectorAll("video").forEach(o=>o!==v&&o.pause()));
-    v.addEventListener("timeupdate", ()=>{
-      const t = v.currentTime;
-      segs.forEach(s=>s.classList.toggle("on", t>=+s.dataset.s && t<+s.dataset.e+0.3));
-    });
-  });
-}
-bind();
+  const bar = document.getElementById("progress");
+  const items = [...document.querySelectorAll("#route li")];
+  const secs = items.map(li => document.querySelector(li.querySelector("a").getAttribute("href")));
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    const h = document.documentElement;
+    bar.style.setProperty("--p", Math.min(1, h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)));
+    let cur = -1;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * 0.35) cur = i; });
+    items.forEach((li, i) => { li.classList.toggle("done", i < cur); li.classList.toggle("now", i === cur); });
+  };
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  update();
+})();
 </script>
 </body>
 </html>
