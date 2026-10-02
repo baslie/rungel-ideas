@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/reviews-hero.webp" fetchpriority="high">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=6">
 <style>
 :root{
   --pos:var(--fir); --pos-bg:var(--fir-t); --neg:var(--cran); --neg-bg:var(--cran-t);
@@ -77,6 +77,14 @@ h2{font:600 12.5px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase
 .seg time{font:400 12.5px/1.75 var(--mono);color:var(--ink-3);font-variant-numeric:tabular-nums}
 .seg b{font:600 12px/1.6 var(--sans);letter-spacing:.04em;color:var(--sp);display:block}
 .seg p{margin:0;font-size:16.5px;line-height:1.6}
+.parts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.part{font:500 13px/1 var(--sans);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink-2);cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.part span{font:400 11.5px/1 var(--mono);color:var(--ink-3)}
+.part:hover{background:var(--paper-2)}
+.part.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.part.on span{color:inherit;opacity:.7}
+.trp{font:600 13px/1.3 var(--sans);color:var(--ink-2);margin:22px 0 4px;padding:0 10px;scroll-margin-top:84px}
+.trp:first-child{margin-top:4px}
 .empty{color:var(--ink-3);font-style:italic;font-size:15px}
 .method{max-width:var(--col);margin:72px auto 0;color:var(--ink-3);font:400 13.5px/1.6 var(--sans);text-align:center}
 
@@ -141,7 +149,7 @@ h2{font:600 12.5px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase
   <div class="cols">
     <div class="brand">
       <a class="wordmark" href="./">Rungel</a>
-      <p class="about">Приложение к зину № 1: все четырнадцать видео с расшифровкой, разметкой по спикерам и тональностью.</p>
+      <p class="about">Приложение к зину № 1: все 14 роликов, собранные в 7 сюжетов, с расшифровкой, разметкой по спикерам и тональностью.</p>
     </div>
     <div>
       <h4>Лонгрид</h4>
@@ -155,17 +163,17 @@ h2{font:600 12.5px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase
     <div>
       <h4>Видео</h4>
       <ul>
-        <li><a href="#video_2026-10-02_19-55-06">Лена Ходова</a></li>
-        <li><a href="#video_2026-10-02_19-55-10">Оксана, «Спорттрек»</a></li>
-        <li><a href="#video_2026-10-02_19-55-38">Маруся о геле GU</a></li>
-        <li><a href="#video_2026-10-02_19-54-38">Дегустация в Power Club Arena</a></li>
+        <li><a href="#lena">Лена Ходова</a></li>
+        <li><a href="#oksana">Оксана, «Спорттрек»</a></li>
+        <li><a href="#sochi">Маруся: GU против RUNGEL</a></li>
+        <li><a href="#anastasia">Дегустация в Power Club Arena</a></li>
       </ul>
     </div>
     <div>
       <h4>Страница</h4>
       <ul>
         <li><a href="./">← Вернуться к лонгриду</a></li>
-        <li><a href="#list">К первому видео</a></li>
+        <li><a href="#list">К первому сюжету</a></li>
       </ul>
     </div>
   </div>
@@ -188,19 +196,20 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt = t => { t = Math.floor(t); return Math.floor(t/60) + ":" + String(t%60).padStart(2,"0"); };
 
-const R = DATA.reviews;
+const R = DATA.stories;
 const O = DATA.overview;
-const total = R.reduce((a,r)=>a+(r.duration||0),0);
+const clips = R.flatMap(r=>r.clips);
+const total = clips.reduce((a,c)=>a+(c.duration||0),0);
 const reviewsN = R.filter(r=>r.kind==="review").length;
-$("#sub").textContent = `${R.length} видео · ${Math.round(total/60)} мин записи · ${reviewsN} с мнением о продукте`;
+$("#sub").textContent = `${clips.length} роликов · ${R.length} сюжетов · ${Math.round(total/60)} мин записи`;
 $("#headline").textContent = O.headline;
 $("#opoints").innerHTML = O.points.map(p=>`<li>${esc(p)}</li>`).join("");
 
 const cnt = {}; R.forEach(r=>cnt[r.sentiment]=(cnt[r.sentiment]||0)+1);
 $("#stats").innerHTML = [
-  [cnt.positive||0, "позитивных"],
-  [cnt.negative||0, "негативных"],
-  [reviewsN, "отзывов с мнением"],
+  [R.length, "сюжетов"],
+  [clips.length, "роликов"],
+  [reviewsN, "с мнением о продукте"],
   [Math.round(total/60)+" мин", "общая длина"]
 ].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join("");
 const order = ["positive","mixed","neutral","negative"];
@@ -209,22 +218,30 @@ $("#legend").innerHTML = order.filter(k=>cnt[k]).map(k=>`<span style="--c:var(${
 const list = (t,a)=>a&&a.length?`<div><h3>${t}</h3><ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"";
 $("#pc").innerHTML = list("Хвалят", O.pros) + list("Критикуют", O.cons) + list("Просят", O.wishes);
 
-/* cards */
+/* cards: один сюжет — одна карточка, части переключаются вкладками */
 function card(r, i){
   const S = SENT[r.sentiment];
   const spk = Object.keys(r.speakers||{});
+  const many = r.clips.length > 1;
   const pcm = [...(r.pros||[]).map(x=>`<span class="p">+ ${esc(x)}</span>`), ...(r.cons||[]).map(x=>`<span class="m">− ${esc(x)}</span>`), ...(r.wishes||[]).map(x=>`<span class="w">→ ${esc(x)}</span>`)].join("");
-  const segs = r.segments.length ? r.segments.map((s,j)=>{
-    const color = SPC[spk.indexOf(s.sp)] || SPC[0];
-    return `<div class="seg" data-s="${s.s}" data-e="${s.e}" style="--sp:var(${color})"><time>${fmt(s.s)}</time><div><b>${esc(r.speakers[s.sp]||s.sp)}</b><p>${esc(s.t)}</p></div></div>`;
-  }).join("") : `<p class="empty">В видео нет речи.</p>`;
+  const tabs = many ? `<div class="parts" role="tablist">${r.clips.map((c,k)=>`<button type="button" class="part${k?"":" on"}" data-k="${k}" role="tab" aria-selected="${!k}">Часть ${k+1}</button>`).join("")}</div>` : "";
+  const tr = r.clips.map((c,k)=>{
+    const head = many ? `<h5 class="trp" id="${c.id}">Часть ${k+1}${c.note?` · ${esc(c.note)}`:""}</h5>` : `<span id="${c.id}"></span>`;
+    const segs = c.segments.length ? c.segments.map(s=>{
+      const color = SPC[spk.indexOf(s.sp)] || SPC[0];
+      return `<div class="seg" data-k="${k}" data-s="${s.s}" data-e="${s.e}" style="--sp:var(${color})"><time>${fmt(s.s)}</time><div><b>${esc(r.speakers[s.sp]||s.sp)}</b><p>${esc(s.t)}</p></div></div>`;
+    }).join("") : `<p class="empty" data-k="${k}">В видео нет речи.</p>`;
+    return head + segs;
+  }).join("");
+  const c0 = r.clips[0];
   return `<article class="card ${r.kind}" id="${r.id}">
     <div class="vid">
-      <video src="${esc(r.file)}" controls preload="metadata" playsinline></video>
-      <div class="meta"><span class="num">#${i+1}</span><span class="num">${fmt(r.duration)}</span><span>${esc(r.file.split("/").pop())}</span></div>
+      <video src="${esc(c0.file)}" controls preload="metadata" playsinline></video>
+      ${tabs}
+      <div class="meta"><span class="num">#${i+1}</span><span class="num dur">${fmt(c0.duration)}</span><span class="fn">${esc(c0.file.split("/").pop())}</span></div>
     </div>
     <div>
-      <div class="meta"><span class="badge" style="--c:var(${S.c});--b:var(${S.b})">${S.label}</span>${r.kind==="context"?`<span class="kind">контекст, без мнения о продукте</span>`:""}</div>
+      <div class="meta"><span class="badge" style="--c:var(${S.c});--b:var(${S.b})">${S.label}</span>${many?`<span class="kind">${r.clips.length} ролика</span>`:""}${r.kind==="context"?`<span class="kind">контекст, без развёрнутого мнения</span>`:""}</div>
       <h3>${esc(r.title)}</h3>
       <p class="who">${esc(r.who)}</p>
       <p class="ctx">${esc(r.context)}</p>
@@ -232,25 +249,43 @@ function card(r, i){
       <ul class="points">${r.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
       ${pcm?`<div class="pcm">${pcm}</div>`:""}
       <h4 class="trh">Транскрипция</h4>
-      <div class="tr">${segs}</div>
+      <div class="tr">${tr}</div>
     </div>
   </article>`;
 }
 $("#list").innerHTML = R.map(card).join("");
 function bind(){
-  document.querySelectorAll(".card").forEach(c=>{
-    const v = c.querySelector("video"), segs = [...c.querySelectorAll(".seg")];
-    segs.forEach(s=>s.onclick=()=>{ v.currentTime=+s.dataset.s; v.play(); });
+  document.querySelectorAll(".card").forEach((c,i)=>{
+    const r = R[i], v = c.querySelector("video"), segs = [...c.querySelectorAll(".seg")];
+    const tabs = [...c.querySelectorAll(".part")];
+    let cur = 0;
+    const show = k => {
+      if (k === cur) return;
+      cur = k; const cl = r.clips[k];
+      v.src = cl.file;
+      c.querySelector(".dur").textContent = fmt(cl.duration);
+      c.querySelector(".fn").textContent = cl.file.split("/").pop();
+      tabs.forEach((t,j)=>{ t.classList.toggle("on", j===k); t.setAttribute("aria-selected", j===k); });
+      segs.forEach(s=>s.classList.remove("on"));
+    };
+    tabs.forEach(t=>t.onclick=()=>show(+t.dataset.k));
+    segs.forEach(s=>s.onclick=()=>{
+      const k = +s.dataset.k, t = +s.dataset.s;
+      if (k !== cur) { show(k); v.addEventListener("loadedmetadata", ()=>{ v.currentTime=t; v.play(); }, {once:true}); }
+      else { v.currentTime=t; v.play(); }
+    });
     v.addEventListener("play", ()=>document.querySelectorAll("video").forEach(o=>o!==v&&o.pause()));
     v.addEventListener("timeupdate", ()=>{
       const t = v.currentTime;
-      segs.forEach(s=>s.classList.toggle("on", t>=+s.dataset.s && t<+s.dataset.e+0.3));
+      segs.forEach(s=>s.classList.toggle("on", +s.dataset.k===cur && t>=+s.dataset.s && t<+s.dataset.e+0.3));
     });
+    /* последняя часть доиграла — следующая */
+    v.addEventListener("ended", ()=>{ if (cur < r.clips.length-1) { show(cur+1); v.addEventListener("loadedmetadata", ()=>v.play(), {once:true}); } });
   });
 }
 bind();
 if (location.hash) { const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); }
 </script>
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=6"></script>
 </body>
 </html>
