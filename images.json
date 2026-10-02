@@ -1,0 +1,37 @@
+{
+  "style": "Analog 35mm film photograph, Kodak Portra 400 pushed one stop, heavy visible film grain, slight halation, muted earthy colours, soft natural light, Siberian taiga near Tomsk. No people, no text, no letters, no logos, no watermark.",
+  "images": {
+    "hero": {
+      "aspect": "landscape", "resolution": "2k",
+      "prompt": "Wide panorama of the Siberian taiga horizon at deep dusk seen from a low hill. Upper two thirds is an empty gradient sky: deep cobalt blue at the top fading through dusty lavender into a thin glowing band of burnt orange and ember red right above the treeline. The bottom third is a nearly black silhouette of fir and larch tops, very dark, almost no detail. Calm, vast, quiet, lots of empty space in the centre for a title."
+    },
+    "strip-left": {
+      "aspect": "portrait", "resolution": "auto",
+      "prompt": "Extreme close-up flat texture of white birch bark with black horizontal lenticels and curling papery peel, ochre and pale yellow lichen patches. Fills the whole frame edge to edge like a sheet of paper, flat even light."
+    },
+    "strip-right": {
+      "aspect": "portrait", "resolution": "auto",
+      "prompt": "Top-down close-up of ripe dark red cranberries scattered on rust-coloured sphagnum moss with a few larch needles and a small larch cone. Fills the frame edge to edge as a texture, flat even overcast light, deep reds and rust browns."
+    },
+    "prefooter": {
+      "aspect": "landscape", "resolution": "2k",
+      "prompt": "Low wide view across a snowy taiga clearing at night under a thin moon: pale grey-beige snow crust with scattered dark fir needles and twigs in the upper half, fading into deep black shadow of forest in the bottom half. Rough, tactile, almost like old paper. Minimal, dark, quiet."
+    },
+    "section-1": {
+      "aspect": "landscape", "resolution": "auto",
+      "prompt": "Close-up of a single Siberian fir branch with flat soft needles, covered in tiny droplets of morning dew, out-of-focus misty forest behind. Muted green and grey palette, shallow depth of field."
+    },
+    "section-2": {
+      "aspect": "landscape", "resolution": "auto",
+      "prompt": "Still life on a weathered wooden table by a window in a Siberian village house: an old enamel mug, a small glass jar of cranberries, a few larch cones and a fir twig. Soft window light from the left, deep shadows, homely and honest."
+    },
+    "section-3": {
+      "aspect": "landscape", "resolution": "auto",
+      "prompt": "Morning fog lying over an endless taiga valley with layers of fir and larch tops fading into the mist, a pale sun disc behind haze. Muted blue-grey and green palette, calm and vast."
+    },
+    "reviews-hero": {
+      "aspect": "landscape", "resolution": "2k",
+      "prompt": "Interior of a wooden Siberian house at blue hour: a window with frost patterns, through it a dark taiga silhouette and a fading orange strip of sunset. The room in the lower part is almost black. Lots of empty dark space in the centre for a title."
+    }
+  }
+}
