@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("rungel-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Видео-отзывы · RUNGEL</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2713%27 cy=%2716%27 r=%2711%27 fill=%27%23c8243f%27/%3E%3Ccircle cx=%2719%27 cy=%2716%27 r=%2711%27 fill=%27%231d6b4f%27 style=%27mix-blend-mode:multiply%27/%3E%3C/svg%3E">
@@ -134,10 +135,14 @@ footer{margin-top:60px;padding-top:24px;border-top:3px double var(--ink-3);color
   .vid{position:relative;top:0;max-width:280px;width:100%;margin:0 auto}
   .wrap{padding:28px 16px 60px}
 }
+.tools{display:flex;gap:14px;align-items:center}
+.theme{width:40px;height:40px;display:grid;place-items:center;padding:0;border:2px solid var(--ink);border-radius:50%;background:var(--slip);color:var(--ink);font:18px/1 var(--serif);cursor:pointer;transform:rotate(4deg);box-shadow:var(--shadow);transition:transform .2s,background .2s,color .2s}
+.theme:hover{transform:rotate(-8deg) scale(1.06);background:var(--ink);color:var(--paper)}
+.theme:focus-visible{outline:3px dashed var(--cran);outline-offset:3px}
 </style>
 </head>
 <body>
-<header class="topbar"><a class="logo" href="./">RUNGEL</a><a class="sticker" href="./">← Лонгрид</a></header>
+<header class="topbar"><a class="logo" href="./">RUNGEL</a><span class="tools"><button class="theme" id="theme" type="button" aria-label="Переключить тему">☾</button><a class="sticker" href="./">← Лонгрид</a></span></header>
 <div class="wrap">
   <div class="top">
     <div class="issue"><span>Зин № 1</span><span>Приложение</span><span>Первоисточник</span></div>
@@ -240,6 +245,17 @@ function bind(){
 }
 bind();
 if (location.hash) { const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); }
+</script>
+<script>
+(() => {
+  const root = document.documentElement, btn = document.getElementById("theme");
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : mq.matches;
+  const paint = () => { const d = isDark(); btn.textContent = d ? "☀" : "☾"; btn.setAttribute("aria-label", d ? "Включить светлую тему" : "Включить тёмную тему"); };
+  btn.addEventListener("click", () => { const t = isDark() ? "light" : "dark"; root.dataset.theme = t; try { localStorage.setItem("rungel-theme", t); } catch (e) {} paint(); });
+  mq.addEventListener?.("change", paint);
+  paint();
+})();
 </script>
 </body>
 </html>

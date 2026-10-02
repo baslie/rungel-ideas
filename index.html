@@ -6,6 +6,7 @@
 <title>RUNGEL: от видео-отзывов к рекламной стратегии</title>
 <meta name="description" content="Зин № 1. Запись одного рассуждения: от четырнадцати видео-отзывов к пониманию, как небольшой томской компании выходить к покупателю.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2713%27 cy=%2716%27 r=%2711%27 fill=%27%23c8243f%27/%3E%3Ccircle cx=%2719%27 cy=%2716%27 r=%2711%27 fill=%27%231d6b4f%27 style=%27mix-blend-mode:multiply%27/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem("rungel-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <script>document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -265,6 +266,9 @@ footer a{color:var(--cran);text-decoration:none}
   .contents .hand{right:6px;top:-34px}
   .circled>svg{inset:-8px -6px;width:calc(100% + 12px);height:calc(100% + 16px)}
 }
+.theme{width:40px;height:40px;display:grid;place-items:center;padding:0;border:2px solid var(--ink);border-radius:50%;background:var(--slip);color:var(--ink);font:18px/1 var(--serif);cursor:pointer;transform:rotate(4deg);box-shadow:var(--shadow);transition:transform .2s,background .2s,color .2s}
+.theme:hover{transform:rotate(-8deg) scale(1.06);background:var(--ink);color:var(--paper)}
+.theme:focus-visible{outline:3px dashed var(--cran);outline-offset:3px}
 </style>
 </head>
 <body>
@@ -274,6 +278,7 @@ footer a{color:var(--cran);text-decoration:none}
   <nav>
     <a class="hide-m" href="#contents">Содержание</a>
     <a class="hide-m" href="#p8">Выводы</a>
+    <button class="theme" id="theme" type="button" aria-label="Переключить тему">☾</button>
     <a class="sticker" href="reviews.html">Видео-отзывы →</a>
   </nav>
   <div class="progress" id="progress"></div>
@@ -609,6 +614,17 @@ footer a{color:var(--cran);text-decoration:none}
   };
   addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
   update();
+})();
+</script>
+<script>
+(() => {
+  const root = document.documentElement, btn = document.getElementById("theme");
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : mq.matches;
+  const paint = () => { const d = isDark(); btn.textContent = d ? "☀" : "☾"; btn.setAttribute("aria-label", d ? "Включить светлую тему" : "Включить тёмную тему"); };
+  btn.addEventListener("click", () => { const t = isDark() ? "light" : "dark"; root.dataset.theme = t; try { localStorage.setItem("rungel-theme", t); } catch (e) {} paint(); });
+  mq.addEventListener?.("change", paint);
+  paint();
 })();
 </script>
 </body>
